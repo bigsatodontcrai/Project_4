@@ -1,11 +1,10 @@
-import * as PIXI from 'pixi.js';
-import PIXI from './pixi';
+import * as PIXI from './pixi.js';
 
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const app = createPixiApp({
-        view: CanvasElement,
+    const app = new PIXI.Application({
+        view: HTMLCanvasElement,
         width: 800,
         height: 600,
         backgroundColor: 0xAAAAAA
