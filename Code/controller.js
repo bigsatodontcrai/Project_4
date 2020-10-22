@@ -12,16 +12,20 @@ class controller {
         
         if(e.key == 'a'){
             this.vx = -3;
-        } else if (e.key == 'd'){
+            return false;
+        } if (e.key == 'd'){
             this.vx = 3;
-        } else if (e.key == 'w'){
+            return false;
+        } if (e.key == 'w'){
             if (this.sprite.y > 160 - 50)
             {
+                console.log('WHATUP');
                 this.vy = -4;
-            } else {
-                this.vy = 4;
-            }
+                return false;
+            } 
+            return true;
         } 
+        return true;
         //this.time = amount;
         
 
@@ -33,7 +37,11 @@ class controller {
         
         if (this.sprite.y > 160 - 50) {
             this.sprite.y += this.vy
-        } else {
+        } else if (this.sprite.y == 160) {
+            this.vy = 0;
+            this.sprite.y += this.vy;
+        }
+        else {
             this.vy = 0;
         }
         return true;

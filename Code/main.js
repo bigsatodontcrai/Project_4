@@ -88,36 +88,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.addEventListener('keypress', (e) => {
             
-            switch(e.key){
-                case 'a':
-                    Forward = -1;
-                    state = 'running';
-                    sprite.animationSpeed = 0.5;
-                    
-                    break;
-                case 'd':
-                    
-                    Forward = 1;
-                    
-                    state = 'running';
-                    sprite.animationSpeed = 0.5;
-                    
-                    break;
-                case 'w':
-                    sprite.animationSpeed = 0.5;
-                    state = 'jumping';
-                default:
-                    state = 'idle';
+
+            if(e.key == 'a') {
+                Forward = -1;
+                state = 'running';
+                sprite.animationSpeed = 0.7;
+            } if (e.key == 'd') {
+                Forward = 1;
+
+                state = 'running';
+                sprite.animationSpeed = 0.7;
+
+            } if (e.key == 'w') {
+                sprite.animationSpeed = 0.7;
+                state = 'jumping';
             }
                  
-            const currentTextures = newResource.spritesheet.animations[state];
+            let currentTextures = newResource.spritesheet.animations[state];
             if(sprite.textures != currentTextures) {
                 sprite.textures = currentTextures;
                 sprite.play();
-            }
-            
-            if(sprite.y < 160) {
-                gameController.vy = 1.2;
             }
             gameController.movement(e);
             
@@ -125,13 +115,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.addEventListener('keyup', (e) => {
             if(e.key == 'd' || e.key == 'a'){
-                gameController.vx = 0;
-                sprite.animationSpeed = 0.1;
-                state = 'idle';
+                
+                if(sprite.y == 160) {
+                    gameController.vx = 0;
+                    sprite.animationSpeed = 0.1;
+                    state = 'idle';
+                    sprite.textures = newResource.spritesheet.animations[state];
+                    sprite.play();
+                }
+            } if (sprite.y < 160) {
+                gameController.vy = 4;
+                sprite.animationSpeed = 0.3;
+                state = 'falling';
                 sprite.textures = newResource.spritesheet.animations[state];
                 sprite.play();
-            } if (sprite.y < 160) {
-                gameController.vy = 1.2;
+            } else if (sprite.y == 160) {
+                gameController.vy = 0;
             }
             
             
@@ -140,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sprite.onFrameChange = function () {
             sprite.scale.x = Math.abs(sprite.scale.x) * Forward;
             gameController.move();
+            
             console.log(sprite.x);
             console.log(gameController.vx);
         }
