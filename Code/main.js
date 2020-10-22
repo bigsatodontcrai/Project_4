@@ -148,10 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
         container.addChild(sprite);
         app.stage.addChild(container);
         app.renderer.render(app.stage);
-
-        /*while(true){
-            gameController.move();
-        }*/
     
     });
 
