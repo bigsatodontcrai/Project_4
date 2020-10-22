@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     loadScene.load(() => {
         let newResource = PIXI.Loader.shared.resources['./Assets/AssetsOrig.json'].spritesheet;
-        console.log(newResource);
+        
         let platformSprites = new Array(50*15);
 
         for (let i = 0; i < 50*15; i++) {
