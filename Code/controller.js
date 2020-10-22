@@ -17,7 +17,7 @@ class controller {
             this.vx = 3;
             return false;
         } if (e.key == 'w'){
-            if (this.sprite.y > 160 - 50)
+            if (this.sprite.y > 160 - 100)
             {
                 console.log('WHATUP');
                 this.vy = -4;
@@ -35,13 +35,11 @@ class controller {
     move(){
         this.sprite.x += this.vx;
         
-        if (this.sprite.y > 160 - 50) {
+        if (this.sprite.y > 160 - 100) {
             this.sprite.y += this.vy
-        } else if (this.sprite.y == 160) {
-            this.vy = 0;
+        } else if (this.sprite.y == 160 - 100) {
             this.sprite.y += this.vy;
-        }
-        else {
+        } if (this.sprite.y == 160) {
             this.vy = 0;
         }
         return true;

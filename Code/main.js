@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         sprite.onFrameChange = function () {
-            sprite.scale.x = Math.abs(sprite.scale.x) * Forward;
+            sprite.scale.x = Forward;
             gameController.move();
             
             console.log(sprite.x);
