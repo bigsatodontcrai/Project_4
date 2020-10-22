@@ -7,19 +7,20 @@
         "adventurer-Sheet3.png"
     ],
     "running": [
-        "adventurer8.png",
-        "adventurer9.png",
-        "adventurer10.png",
-        "adventurer11.png",
-        "adventurer12.png",
-        "adventurer13.png"
+        "adventurer-Sheet8.png",
+        "adventurer-Sheet9.png",
+        "adventurer-Sheet10.png",
+        "adventurer-Sheet11.png",
+        "adventurer-Sheet12.png",
+        "adventurer-Sheet13.png"
     ],
     "jumping": [
-        "adventurer16.png"
+        "adventurer-Sheet16.png",
+        "adventurer-Sheet17.png"
     ],
     "falling": [
-        "adventurer22.png",
-        "adventurer23.png"
+        "adventurer-Sheet22.png",
+        "adventurer-Sheet23.png"
     ]
 },
 
