@@ -21,10 +21,12 @@ const app = new PIXI.Application(
 );
 
 let sprite;
+let state = 'idle';
 
 let resource;
 let container;
 let background;
+let Forward = 1;
 
 
 let platformArray = [163, 163, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 138, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 138, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 63, 64, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 78, 79, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 0, 0, 92, 93, 94, 0, 0, 0, 163, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 144, 144, 144, 0, 0, 163, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 144, 144, 144, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 114, 115, 116, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 66, 66, 0, 0, 0, 0, 0, 0, 0, 130, 128, 129, 130, 0, 0, 0, 0, 0, 0, 0, 0, 0, 187, 187, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 143, 144, 142, 143, 144, 0, 0, 0, 0, 187, 187, 0, 0, 0, 187, 187, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 0, 0, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 0, 0, 144, 144, 144, 144, 144, 144, 0, 0, 187, 187, 187, 187, 187, 0, 0, 187, 187, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 0, 0, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 0, 0, 144, 144, 144, 144, 144, 144, 0, 0, 187, 187, 187, 187, 187, 187, 187, 187, 187, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 0, 0, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 0, 0, 144, 144, 144, 144, 144, 144, 0, 0, 187, 187, 187, 187, 187, 187, 187, 187, 187];
@@ -75,11 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
         sprite.play();
         sprite.animationSpeed = 0.1;
         let gameController = new controller(sprite);
-
-        let state = 'idle';
-        let frameCounter = 0;
         let isRun = false;
-        let Forward = 1;
+        let isKeyDown = false;
+        
 
         document.addEventListener('keydown', (e) => {
 
@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.addEventListener('keypress', (e) => {
             
-
+            //gameController.keyP(e);
+            isKeyDown = true;
             if(e.key == 'a') {
                 Forward = -1;
                 state = 'running';
@@ -120,18 +121,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     gameController.vx = 0;
                     sprite.animationSpeed = 0.1;
                     state = 'idle';
-                    sprite.textures = newResource.spritesheet.animations[state];
-                    sprite.play();
                 }
             } if (sprite.y < 160) {
-                gameController.vy = 4;
-                sprite.animationSpeed = 0.3;
+                gameController.vy = 6;
+                sprite.animationSpeed = 0.5;
                 state = 'falling';
-                sprite.textures = newResource.spritesheet.animations[state];
-                sprite.play();
+                
             } else if (sprite.y == 160) {
                 gameController.vy = 0;
+                state = 'idle';
             }
+            sprite.textures = newResource.spritesheet.animations[state];
+            sprite.play();
             
             
         });
@@ -140,7 +141,17 @@ document.addEventListener('DOMContentLoaded', () => {
             sprite.scale.x = Forward;
             gameController.move();
             
+            if(state == 'falling' && sprite.y == 160){
+                state = 'idle';
+                gameController.vy = 0;
+                gameController.vx = 0;
+                
+                sprite.animationSpeed = 0.1;
+                sprite.textures = newResource.spritesheet.animations[state];
+                sprite.play();
+            }
             console.log(sprite.x);
+            console.log(sprite.y);
             console.log(gameController.vx);
         }
         

@@ -5,11 +5,12 @@ class controller {
         this.vert = sprite.y;
         this.vx = 0;
         this.vy = 0;
+        this.curr = [];
         //this.time = 0;
     }
 
     movement (e) {
-        
+        this.curr.push(e.key);
         if(e.key == 'a'){
             this.vx = -3;
             return false;
@@ -20,15 +21,13 @@ class controller {
             if (this.sprite.y > 160 - 100)
             {
                 console.log('WHATUP');
-                this.vy = -4;
+                this.vy = -6;
                 return false;
             } 
+            this.vy = 6;
             return true;
         } 
         return true;
-        //this.time = amount;
-        
-
          
     }
 
@@ -56,25 +55,50 @@ class controller {
         return true;
     }
 
-//in 6 frames, i want him to go y = y + 24 meaning each frame he goes up 24/6
-//meaning every frame, he goes up 4. his velocity is thus 4 px/frame
-/*
+    keyP(e){
+        if (e.key == 'a') {
+            Forward = -1;
+            state = 'running';
+            this.sprite.animationSpeed = 0.7;
+        } if (e.key == 'd') {
+            Forward = 1;
 
-frame 1: 4 px
-frame 2: 8 px
-frame 3: 12 px
-frame 4: 16 px
-frame 5: 20 px
-frame 6: 24 px
+            state = 'running';
+            this.sprite.animationSpeed = 0.7;
 
-the time each frame takes = 1 / 60 seconds
+        } if (e.key == 'w') {
+            this.sprite.animationSpeed = 0.7;
+            state = 'jumping';
+        }
 
-After 6 frames, i want him to fall down to the ground from gravity
-in 6 frames going backwards from 24 down to 0. 
-meaning his velocity is then -4 px/frame
+        let currentTextures = newResource.spritesheet.animations[state];
+        if (sprite.textures != currentTextures) {
+            this.sprite.textures = currentTextures;
+            sprite.play();
+        }
+        this.movement(e);
+    }
 
+    keyU(e){
 
+    }
 
-*/
+    clearList(){
+        this.curr = [];
+    }
 }
+
+function keypress(e) {
+    controller.keyP(e);
+}
+
+function keydown(e) {
+
+}
+
+function keyup(e) {
+
+}
+
+
 
