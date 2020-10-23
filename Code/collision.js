@@ -17,7 +17,6 @@ function getPos(box) {
     console.log(pos);
     console.log(mos);
 
-
     boxArray[0] = [pos, mos - 32];
     boxArray[1] = [pos + 16, mos - 32];
     boxArray[2] = [pos + 32, mos - 16];

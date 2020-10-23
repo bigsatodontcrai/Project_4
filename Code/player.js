@@ -29,6 +29,7 @@ function characterMovement(){
         spriteHurtBox.updateHurtBox(gameController);
         arrayOfSprites = newSpriteArray(spriteHurtBox);
         console.log(spriteHurtBox);
+        console.log(arrayOfSprites);
 
         for (let i = 0; i < 8; i++) {
 
