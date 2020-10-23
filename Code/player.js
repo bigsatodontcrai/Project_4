@@ -92,7 +92,6 @@ function playCharacter(){
         sprite.textures = newResource.spritesheet.animations[state];
         sprite.play();
 
-
     });
 
     

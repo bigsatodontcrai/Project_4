@@ -1,3 +1,4 @@
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(app.view);
 
