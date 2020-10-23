@@ -6,26 +6,25 @@ class controller {
         this.vx = 0;
         this.vy = 0;
         this.curr = [];
+        this.size = 0;
         //this.time = 0;
     }
 
     movement (e) {
         this.curr.push(e.key);
+        this.size++;
         if(e.key == 'a'){
             this.vx = -3;
-            return false;
         } if (e.key == 'd'){
             this.vx = 3;
-            return false;
         } if (e.key == 'w'){
-            if (this.sprite.y > this.vert - 100)
+            if (this.sprite.y < this.vert - 100)
             {
                 console.log('WHATUP');
-                this.vy = -6;
+                this.vy = 3;
                 return false;
             } 
-            this.vy = 6;
-            return true;
+            this.vy = -3;
         } 
         return true;
          
@@ -33,15 +32,14 @@ class controller {
 
     move(){
         this.sprite.x += this.vx;
+        this.sprite.y += this.vy;
         
-        if (this.sprite.y > 160 - 100) {
-            this.sprite.y += this.vy
-        } else if (this.sprite.y == 160 - 100) {
-            this.sprite.y += this.vy;
-        } if (this.sprite.y == 176) {
-            this.vy = 0;
-        }
         return true;
+    }
+
+    calculateParameters(){
+        this.hori = this.sprite.x;
+        this.vert = this.sprite.x;
     }
 
     moveLeft(){
@@ -55,32 +53,22 @@ class controller {
         return true;
     }
 
-    keyP(e){
-        if (e.key == 'a') {
-            Forward = -1;
-            state = 'running';
-            this.sprite.animationSpeed = 0.7;
-        } if (e.key == 'd') {
-            Forward = 1;
-
-            state = 'running';
-            this.sprite.animationSpeed = 0.7;
-
-        } if (e.key == 'w') {
-            this.sprite.animationSpeed = 0.7;
-            state = 'jumping';
+    stopMovement(e, spriteHurtBox){
+        if (e.key == 'd' || e.key == 'a') {
+            if (spriteHurtBox.downCollision == true) {
+                this.vx = 0;
+            }
+        } if (e.key == 'w'){
+            this.vy = 6;
+            
         }
+        
+        else if (spriteHurtBox.downCollision == false) {
+            this.vy = 6;
 
-        let currentTextures = newResource.spritesheet.animations[state];
-        if (sprite.textures != currentTextures) {
-            this.sprite.textures = currentTextures;
-            sprite.play();
+        } else if (spriteHurtBox.downCollision == true) {
+            this.vy = 0;
         }
-        this.movement(e);
-    }
-
-    keyU(e){
-
     }
 
     clearList(){
