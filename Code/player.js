@@ -8,7 +8,7 @@ function setupCharacter(){
     sprite.height = 32;
     sprite.width = 16 * 4;
     sprite.x = -16;
-    sprite.y = 176;
+    sprite.y = 140;
     sprite.play();
     sprite.animationSpeed = 0.1;
 
@@ -20,9 +20,10 @@ function setupCharacter(){
 
 
 function characterMovement(){
-    
+
         let thing = false;
         if (state != 'jumping') {
+            
             gameController.vy = 3;
         }
         spriteHurtBox.updateHurtBox(gameController);
@@ -36,7 +37,14 @@ function characterMovement(){
             }
             else {
                 console.log('sup');
-                thing = spriteHurtBox.collide(arrayOfSprites[i], gameController, Forward);
+                try {
+                    thing = spriteHurtBox.collide(arrayOfSprites[i], gameController, Forward);
+                } catch(error){
+                    alert('you died.');
+                    sprite.x = -16;
+                    sprite.y = 140;
+                    sprite.animationSpeed = 0.1;
+                }
                 console.log(arrayOfSprites[i]);
                 console.log(thing);
             }
@@ -56,6 +64,7 @@ function playCharacter(){
     //gameController.vy = 6;
     let isRun = false;
     let isKeyDown = false;
+    let counter = 0;
 
     document.addEventListener('keydown', (e) => {
 
@@ -66,7 +75,7 @@ function playCharacter(){
 
         //gameController.keyP(e);
         isKeyDown = true;
-        gameController.movement(e);
+        gameController.movement(e, spriteHurtBox);
         state = updateState(gameController.vx, gameController.vy, sprite);
         let currentTextures = newResource.spritesheet.animations[state];
         if (sprite.textures != currentTextures) {
@@ -85,8 +94,7 @@ function playCharacter(){
 
     });
 
-
-
+    
     sprite.onFrameChange = function () {
         characterMovement();
         state = updateState(gameController.vx, gameController.vy, sprite);
@@ -96,5 +104,9 @@ function playCharacter(){
             sprite.play();
         }
     }
+    
+
+
+    
 }
 

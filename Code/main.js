@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 constantHurtBox[i] = 0;
             }
         }
+
+        console.log(platformSprites);
+        console.log(constantHurtBox);
         
     });
 

@@ -55,12 +55,17 @@ class hurtBox {
         let updatedYT = this.topEdge + this.vy;
         let updatedYD = this.bottomEdge + this.vy;
 
+        let RC = false;
+        let LC = false;
+        let UC = false;
+        let DC = false;
         
-
-        let RC = updatedXR > box.leftEdge && updatedXR < box.rightEdge;
-        let LC = updatedXL < box.rightEdge && updatedXR > box.leftEdge;
-        let UC = updatedYT < box.bottomEdge && updatedYT > box.topEdge;
-        let DC = updatedYD > box.topEdge && updatedYD < box.bottomEdge;
+        
+        RC = updatedXR > box.leftEdge && updatedXR < box.rightEdge;
+        LC = updatedXL < box.rightEdge && updatedXL > box.leftEdge;
+        UC = updatedYT < box.bottomEdge && updatedYT > box.topEdge;
+        DC = updatedYD > box.topEdge && updatedYD < box.bottomEdge;
+        
 
         this.rightCollision = RC && box != 0;
         this.leftCollision = LC && box != 0;
@@ -81,7 +86,7 @@ class hurtBox {
             controller.vx = 0;
         }
         if(this.upCollision){
-            controller.vy = 6;
+            controller.vy = 3;
         } if (this.downCollision){
             controller.vy = 0;
         }
