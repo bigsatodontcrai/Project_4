@@ -10,7 +10,7 @@ class controller {
         //this.time = 0;
     }
 
-    movement (e) {
+    movement (e, spriteHurtBox) {
         this.curr.push(e.key);
         this.size++;
         if(e.key == 'a'){
@@ -24,7 +24,11 @@ class controller {
                 this.vy = 3;
                 return false;
             } 
-            this.vy = -3;
+            if(spriteHurtBox.downCollision){
+                this.vy = -3;
+            } else {
+                this.vy = 3;
+            }
         } 
         return true;
          
