@@ -18,12 +18,6 @@ class controller {
         } if (e.key == 'd'){
             this.vx = 3;
         } if (e.key == 'w'){
-            if (this.sprite.y < this.vert - 100)
-            {
-                console.log('WHATUP');
-                this.vy = 3;
-                return false;
-            } 
             if(spriteHurtBox.downCollision){
                 this.vy = -3;
             } else {
