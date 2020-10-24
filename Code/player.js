@@ -7,8 +7,8 @@ function setupCharacter(){
 
     sprite.height = 32;
     sprite.width = 16 * 4;
-    sprite.x = -16;
-    sprite.y = 140;
+    sprite.x = 0;
+    sprite.y = 192 - 16*6;
     sprite.play();
     sprite.animationSpeed = 0.1;
 
@@ -34,7 +34,15 @@ function characterMovement(){
         for (let i = 0; i < 8; i++) {
 
             if (arrayOfSprites[i] == 0) {
-                console.log('haha');
+                if(i == 0||1){
+                    spriteHurtBox.upCollision = false;
+                } else if(i == 2||3){
+                    spriteHurtBox.rightCollision = false;
+                } else if (i == 4||5){
+                    spriteHurtBox.downCollision = false;
+                } else if (i == 6||7){
+                    spriteHurtBox.leftCollision = false;
+                }
             }
             else {
                 console.log('sup');
@@ -46,7 +54,6 @@ function characterMovement(){
                     sprite.y = 140;
                     sprite.animationSpeed = 0.1;
                 }
-                console.log(arrayOfSprites[i]);
                 console.log(thing);
             }
         }

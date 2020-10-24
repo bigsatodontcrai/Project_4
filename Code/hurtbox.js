@@ -30,8 +30,8 @@ class hurtBox {
     calculateCharEdges(){
         this.rightEdge = this.sprite.x + 2 * this.sprite.width/3;
         this.leftEdge = this.sprite.x + this.sprite.width/3;
-        this.topEdge = this.sprite.y - 16*3;
-        this.bottomEdge = this.sprite.y - 16;
+        this.topEdge = this.sprite.y - 16 * 4;
+        this.bottomEdge = this.sprite.y + 16;
 
         console.log(this.topEdge);
         console.log(this.bottomEdge);
@@ -45,8 +45,9 @@ class hurtBox {
     }
 
     updateHurtBox(controller){
-        this.calculateCharEdges();
         this.updateVelocity(controller);
+        this.calculateCharEdges();
+        
     }
 
     updateCollisionStatements(box){
