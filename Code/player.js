@@ -5,10 +5,10 @@ function setupCharacter(){
 
     sprite = sprite;
 
-    sprite.height = 32;
+    sprite.height = 16 * 2;
     sprite.width = 16 * 4;
-    sprite.x = 0;
-    sprite.y = 192 - 16*6;
+    sprite.x = 16;
+    sprite.y = 192 - 16*2;
     sprite.play();
     sprite.animationSpeed = 0.1;
 
@@ -30,7 +30,7 @@ function characterMovement(){
         arrayOfSprites = newSpriteArray(spriteHurtBox);
         console.log(spriteHurtBox);
         console.log(arrayOfSprites);
-
+        console.log(sprite.y);
         for (let i = 0; i < 8; i++) {
 
             if (arrayOfSprites[i] == 0) {
