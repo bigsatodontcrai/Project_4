@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 platformSprites[i].y = (yloc + 1) * 16;
                 platformSprites[i].width = 16;
                 platformSprites[i].height = 16;
+                platformSprites[i].interactive = true;
+
                 constantHurtBox[i] = new hurtBox(platformSprites[i]);
                 constantHurtBox[i].calculateEdges();
                 container.addChild(platformSprites[i]);
