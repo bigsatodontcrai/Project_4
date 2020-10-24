@@ -29,13 +29,13 @@ class hurtBox {
     }
 
     calculateCharEdges(){
-        this.rightEdge = this.sprite.x + 33;
-        this.leftEdge = this.sprite.x + 13;
-        this.topEdge = this.sprite.y - 6;
-        this.bottomEdge = this.sprite.y - 36;
+        this.rightEdge = this.sprite.x + 0.66 * sprite.width;
+        this.leftEdge = this.sprite.x + 0.26 * sprite.width;
+        this.topEdge = this.sprite.y - 0.16 * sprite.height;
+        this.bottomEdge = this.sprite.y - 0.97 * sprite.height;
 
         this.width = this.rightEdge - this.leftEdge;
-        this.height = this.bottomEdge - this.topEdge;
+        this.height = this.topEdge - this.bottomEdge;
 
         console.log(this.topEdge);
         console.log(this.bottomEdge);

@@ -5,10 +5,10 @@ function setupCharacter(){
 
     sprite = sprite;
 
-    sprite.height = 37;
-    sprite.width = 50;
+    sprite.height = 39.5;
+    sprite.width = 40;
     sprite.x = 16;
-    sprite.y = 192 - 16*2;
+    sprite.y = 192 - 16*5;
     sprite.play();
     sprite.animationSpeed = 0.1;
 

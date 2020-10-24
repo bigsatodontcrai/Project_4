@@ -16,16 +16,18 @@ function getPos(box) {
     let mos = thePosition(box.bottomEdge, 16);
     console.log(pos);
     console.log(mos);
-    
 
-    boxArray[0] = [pos, mos - 32];
-    boxArray[1] = [pos + 16, mos - 32];
-    boxArray[2] = [pos + 32, mos - 16];
-    boxArray[3] = [pos + 32, mos];
-    boxArray[4] = [pos + 16, mos + 16];
-    boxArray[5] = [pos, mos + 16];
-    boxArray[6] = [pos - 16, mos];
-    boxArray[7] = [pos - 16, mos - 16];
+    boxArray[0] = [pos, mos - 16*3];//top left
+    boxArray[1] = [pos + 16, mos - 16*3];//top right
+
+    boxArray[2] = [pos + 32, mos - 16];//right top
+    boxArray[3] = [pos + 32, mos];//right bottom
+
+    boxArray[4] = [pos + 16, mos];
+    boxArray[5] = [pos, mos];
+
+    boxArray[6] = [pos - 16, mos - 16];
+    boxArray[7] = [pos - 16, mos - 32];
 
 
     return boxArray;
