@@ -54,7 +54,7 @@ class hurtBox {
         
     }
 
-    updateCollisionStatements(box){
+    updateCollisionStatements(box, forward){
         let updatedXR = this.rightEdge + this.vx;
         let updatedXL = this.leftEdge + this.vx;
         let updatedYT = this.topEdge + this.vy;
@@ -65,9 +65,11 @@ class hurtBox {
         let UC = false;
         let DC = false;
         
-        
-        RC = updatedXR > box.leftEdge && updatedXR < box.rightEdge;
-        LC = updatedXL < box.rightEdge && updatedXL > box.leftEdge;
+        if(forward == 1){
+            RC = updatedXR > box.leftEdge && updatedXR < box.rightEdge;
+        } else if(forward == -1){
+            LC = updatedXL < box.rightEdge && updatedXL > box.leftEdge;
+        }
         UC = updatedYT < box.bottomEdge && updatedYT > box.topEdge;
         DC = updatedYD > box.topEdge && updatedYD < box.bottomEdge;
         
@@ -83,12 +85,15 @@ class hurtBox {
     }
 
     collide(box, controller, Forward){
-        this.updateCollisionStatements(box);
+        this.updateCollisionStatements(box, Forward);
         if(this.rightCollision && Forward == 1) {
+            console.log(box);
+            console.log('RIGHT');
             controller.vx = 0;
         }
         if(this.leftCollision && Forward == -1){
-            
+            console.log(box);
+            console.log('LEFT');
             controller.vx = 0;
         }
         
