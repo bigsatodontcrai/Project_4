@@ -9,10 +9,9 @@ To play our game all you gave to do is download the code to your machine locally
 
 ## How To Play ![Adventurer3](Documentation/images/adventurer3.png)
 The goal of the game is to avoid emenies and grab as many coins as possible before time or your health runs out. 
-* Use WASD to move
+* Use WAD to move
     * W to jump
     * A to go left
-    * S to duck
     * D to go right
 
 ## Documentation ![Adventurer5](Documentation/images/adventurer5.png)
