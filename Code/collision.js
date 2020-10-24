@@ -11,11 +11,12 @@ function thePosition(num, px) {
 
 function getPos(box) {
     let boxArray = [[], [], [], [], [], [], [], [], []];
-
-    let pos = thePosition(box.leftEdge, 16);
+    let xoffset = 0;
+    let pos = thePosition(box.leftEdge, 16) + xoffset;
     let mos = thePosition(box.bottomEdge, 16);
     console.log(pos);
     console.log(mos);
+    
 
     boxArray[0] = [pos, mos - 32];
     boxArray[1] = [pos + 16, mos - 32];

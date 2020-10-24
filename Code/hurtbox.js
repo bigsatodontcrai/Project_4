@@ -28,10 +28,10 @@ class hurtBox {
     }
 
     calculateCharEdges(){
-        this.rightEdge = this.sprite.x + 2 * this.sprite.width/3;
-        this.leftEdge = this.sprite.x + this.sprite.width/3;
-        this.topEdge = this.sprite.y - 16*3;
-        this.bottomEdge = this.sprite.y - 16;
+        this.rightEdge = this.sprite.x + 16 * 3;
+        this.leftEdge = this.sprite.x + 16;
+        this.topEdge = this.sprite.y - sprite.height;
+        this.bottomEdge = this.sprite.y;
 
         console.log(this.topEdge);
         console.log(this.bottomEdge);
@@ -45,8 +45,9 @@ class hurtBox {
     }
 
     updateHurtBox(controller){
-        this.calculateCharEdges();
         this.updateVelocity(controller);
+        this.calculateCharEdges();
+        
     }
 
     updateCollisionStatements(box){
@@ -67,10 +68,10 @@ class hurtBox {
         DC = updatedYD > box.topEdge && updatedYD < box.bottomEdge;
         
 
-        this.rightCollision = RC && box != 0;
-        this.leftCollision = LC && box != 0;
-        this.upCollision = UC && box != 0;
-        this.downCollision = DC && box != 0;
+        this.rightCollision = RC;
+        this.leftCollision = LC;
+        this.upCollision = UC;
+        this.downCollision = DC;
     }
 
     isCollide(){
@@ -83,6 +84,7 @@ class hurtBox {
             controller.vx = 0;
         }
         if(this.leftCollision && Forward == -1){
+            alert('collide');
             controller.vx = 0;
         }
         if(this.upCollision){
