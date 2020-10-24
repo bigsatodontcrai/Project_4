@@ -19,4 +19,4 @@ All documentation can be found in the [Documentation Folder].
 
 [Atom]: https://atom.io/packages/atom-live-server
 [VS Code]: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
-[Documentation Folder]: (/Documentation)
+[Documentation Folder]: (Documentation)
