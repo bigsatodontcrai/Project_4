@@ -21,8 +21,8 @@ class hurtBox {
     calculateEdges(){
         this.rightEdge = this.sprite.x + this.sprite.width;
         this.leftEdge = this.sprite.x;
-        this.topEdge = this.sprite.y - this.sprite.height;
-        this.bottomEdge = this.sprite.y;
+        this.topEdge = this.sprite.y;
+        this.bottomEdge = this.sprite.y + this.sprite.height;
         
         //hurtbox is updated every frame for the character while it's constant
         //for the other objects
@@ -31,8 +31,8 @@ class hurtBox {
     calculateCharEdges(){
         this.rightEdge = this.sprite.x + 0.66 * sprite.width;
         this.leftEdge = this.sprite.x + 0.26 * sprite.width;
-        this.topEdge = this.sprite.y - 0.16 * sprite.height;
-        this.bottomEdge = this.sprite.y - 0.97 * sprite.height;
+        this.topEdge = this.sprite.y + 0.16 * sprite.height;
+        this.bottomEdge = this.sprite.y + 0.97 * sprite.height;
 
         this.width = this.rightEdge - this.leftEdge;
         this.height = this.topEdge - this.bottomEdge;
