@@ -5,15 +5,14 @@ function setupCharacter(){
 
     sprite = sprite;
 
-    sprite.height = 16 * 2;
-    sprite.width = 16 * 4;
+    sprite.height = 37;
+    sprite.width = 50;
     sprite.x = 16;
     sprite.y = 192 - 16*2;
     sprite.play();
     sprite.animationSpeed = 0.1;
 
     spriteHurtBox = new hurtBox(sprite);
-
     gameController = new controller(sprite);
 
 }
@@ -23,7 +22,6 @@ function characterMovement(){
 
         let thing = false;
         if (state != 'jumping') {
-            
             gameController.vy = 3;
         }
         spriteHurtBox.updateHurtBox(gameController);
@@ -31,6 +29,7 @@ function characterMovement(){
         console.log(spriteHurtBox);
         console.log(arrayOfSprites);
         console.log(sprite.y);
+        
         for (let i = 0; i < 8; i++) {
 
             if (arrayOfSprites[i] == 0) {
@@ -58,7 +57,8 @@ function characterMovement(){
             }
         }
         gameController.move();
-
+        console.log(gameController.vx);
+        console.log(gameController.vy);
         console.log(Forward);
 
         
@@ -68,11 +68,6 @@ function characterMovement(){
 function playCharacter(){
     const newResource = PIXI.Loader.shared.resources['./Assets/adventurer-Sheet.json'];
     setupCharacter();
-    
-    //gameController.vy = 6;
-    let isRun = false;
-    let isKeyDown = false;
-    let counter = 0;
 
     document.addEventListener('keydown', (e) => {
 

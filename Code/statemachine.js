@@ -19,13 +19,13 @@ function updateState(vx, vy, sprite) {
         }
         thisState = 'running';
     } else if (vy > 0) {
-        sprite.animationSpeed = 0.5;
+        sprite.animationSpeed = 0.01;
         thisState = 'falling';
     } else if (vy < 0) {
-        sprite.animationSpeed = 0.7;
+        sprite.animationSpeed = 0.01;
         thisState = 'jumping';
     } else {
-        sprite.animationSpeed = 0.1;
+        sprite.animationSpeed = 0.01;
         thisState = 'idle';
     }
 

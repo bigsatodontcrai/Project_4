@@ -23,15 +23,19 @@ class hurtBox {
         this.leftEdge = this.sprite.x;
         this.topEdge = this.sprite.y - this.sprite.height;
         this.bottomEdge = this.sprite.y;
+        
         //hurtbox is updated every frame for the character while it's constant
         //for the other objects
     }
 
     calculateCharEdges(){
-        this.rightEdge = this.sprite.x + 16 * 3;
-        this.leftEdge = this.sprite.x + 16;
-        this.topEdge = this.sprite.y - sprite.height;
-        this.bottomEdge = this.sprite.y;
+        this.rightEdge = this.sprite.x + 33;
+        this.leftEdge = this.sprite.x + 13;
+        this.topEdge = this.sprite.y - 6;
+        this.bottomEdge = this.sprite.y - 36;
+
+        this.width = this.rightEdge - this.leftEdge;
+        this.height = this.bottomEdge - this.topEdge;
 
         console.log(this.topEdge);
         console.log(this.bottomEdge);
@@ -84,12 +88,16 @@ class hurtBox {
             controller.vx = 0;
         }
         if(this.leftCollision && Forward == -1){
-            alert('collide');
+            
             controller.vx = 0;
         }
+        
         if(this.upCollision){
+            console.log('UP');
             controller.vy = 3;
-        } if (this.downCollision){
+        } 
+        if (this.downCollision) {
+            console.log('DOWN');
             controller.vy = 0;
         }
         return this.isCollide();
