@@ -20,8 +20,8 @@ function getPos(box) {
     boxArray[0] = [pos, mos - 16*3];//top left
     boxArray[1] = [pos + 16, mos - 16*3];//top right
 
-    boxArray[2] = [pos + 32, mos - 16];//right top
-    boxArray[3] = [pos + 32, mos];//right bottom
+    boxArray[2] = [pos + 32, mos - 32];//right top
+    boxArray[3] = [pos + 32, mos - 16];//right bottom
 
     boxArray[4] = [pos + 16, mos];
     boxArray[5] = [pos, mos];
