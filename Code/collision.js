@@ -54,9 +54,7 @@ function newSpriteArray(box) {
     for (let i = 0; i < 8; i++) {
         let index = ind[i];
         spriteArray[i] = constantHurtBox[index];
-        if(spriteArray[i].isSprite){
-            spriteArray[i].y -= 16;
-        }
+        
     }
 
     return spriteArray;
