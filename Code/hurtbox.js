@@ -57,9 +57,11 @@ class hurtBox {
         this.topEdge = this.sprite.y + (7/37) * this.sprite.height;
         this.bottomEdge = this.sprite.y + (36/37) * this.sprite.height;
 
+
         this.x = this.leftEdge;
         this.y = this.topEdge;
         
+
         
 
     }//yes redundant function but for now to compensate for the assets offset
@@ -160,6 +162,7 @@ class hurtBox {
             v: 0,
         }
     }
+
 
 
     updateCollisionStatements(rect2, controller){

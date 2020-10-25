@@ -9,7 +9,7 @@
 function setupCharacter(){
     resource = PIXI.Loader.shared.resources["./Assets/adventurer-Sheet.json"].spritesheet;
     sprite = new PIXI.AnimatedSprite(resource.animations.idle);
-    console.log('its lit');
+ //   console.log('its lit');
 
     sprite = sprite;
 
@@ -46,9 +46,11 @@ function characterMovement(){
     spriteHurtBox.updateHurtBox(gameController);
     try {
         arrayOfSprites = newSpriteArray(spriteHurtBox);
+
     } catch(error) {
         console.log('no');
     }
+
     
     arrayOfSprites.forEach(box => test(box));
       
