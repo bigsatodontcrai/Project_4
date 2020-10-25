@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadScene.load(() => {
         let newResource = PIXI.Loader.shared.resources['./Assets/AssetsOrig.json'].spritesheet;
         
-
         for (let i = 0; i < 50*15; i++) {
             if (platformArray[i] != 0) {
                 
@@ -30,12 +29,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 platformSprites[i].height = 16;
                 platformSprites[i].interactive = true;
 
+
                 constantHurtBox[i] = new hurtBox(platformSprites[i]);
+                constantHurtBox[i].immutable = true;
                 constantHurtBox[i].calculateEdges();
                 container.addChild(platformSprites[i]);
             } else {
-                platformSprites[i] = 0;
-                constantHurtBox[i] = 0;
+                platformSprites[i] = {
+                    x: (i % 50) * 16,
+                    y: (Math.floor(i/50) + 1) * 16,
+                    height: 16,
+                    width: 16,
+                };
+                constantHurtBox[i] = new hurtBox(platformSprites[i]);
+                constantHurtBox[i].height = platformSprites[i].height;
+                constantHurtBox[i].width = platformSprites[i].width;
+                constantHurtBox[i].immutable = false;
             }
         }
 

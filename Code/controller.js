@@ -29,15 +29,18 @@ class controller {
     }
 
     move(){
-        this.sprite.x += this.vx;
-        this.sprite.y += this.vy;
+        //alert('hey ' + this.vy);
         
+        this.sprite.x += this.vx;
+        //alert(this.sprite.y);
+        this.sprite.y += this.vy;
+        //alert(this.sprite.y);
         return true;
     }
 
     calculateParameters(){
         this.hori = this.sprite.x;
-        this.vert = this.sprite.x;
+        this.vert = this.sprite.y;
     }
 
     moveLeft(){
@@ -56,10 +59,8 @@ class controller {
             if (spriteHurtBox.downCollision) {
                 this.vx = 0;
             }
-        } if (e.key == 'w'){
-            this.vy = 6;
         } if (e.key == 'w' && spriteHurtBox.downCollision == false) {
-            this.vy = 6;
+            this.vy = 1;
         } else if (spriteHurtBox.downCollision == true) {
             this.vy = 0;
         }
