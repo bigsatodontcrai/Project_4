@@ -21,8 +21,8 @@ class hurtBox {
     calculateEdges(){
         this.rightEdge = this.sprite.x + this.sprite.width;
         this.leftEdge = this.sprite.x;
-        this.topEdge = this.sprite.y - this.sprite.height;
-        this.bottomEdge = this.sprite.y;
+        this.topEdge = this.sprite.y;
+        this.bottomEdge = this.sprite.y + this.sprite.height;
         
         //hurtbox is updated every frame for the character while it's constant
         //for the other objects
@@ -31,8 +31,8 @@ class hurtBox {
     calculateCharEdges(){
         this.rightEdge = this.sprite.x + 0.66 * sprite.width;
         this.leftEdge = this.sprite.x + 0.26 * sprite.width;
-        this.topEdge = this.sprite.y - 0.16 * sprite.height;
-        this.bottomEdge = this.sprite.y - 0.97 * sprite.height;
+        this.topEdge = this.sprite.y + 0.16 * sprite.height;
+        this.bottomEdge = this.sprite.y + 0.97 * sprite.height;
 
         this.width = this.rightEdge - this.leftEdge;
         this.height = this.topEdge - this.bottomEdge;
@@ -54,7 +54,7 @@ class hurtBox {
         
     }
 
-    updateCollisionStatements(box){
+    updateCollisionStatements(box, forward){
         let updatedXR = this.rightEdge + this.vx;
         let updatedXL = this.leftEdge + this.vx;
         let updatedYT = this.topEdge + this.vy;
@@ -65,9 +65,11 @@ class hurtBox {
         let UC = false;
         let DC = false;
         
-        
-        RC = updatedXR > box.leftEdge && updatedXR < box.rightEdge;
-        LC = updatedXL < box.rightEdge && updatedXL > box.leftEdge;
+        if(forward == 1){
+            RC = updatedXR > box.leftEdge && updatedXR < box.rightEdge;
+        } else if(forward == -1){
+            LC = updatedXL < box.rightEdge && updatedXL > box.leftEdge;
+        }
         UC = updatedYT < box.bottomEdge && updatedYT > box.topEdge;
         DC = updatedYD > box.topEdge && updatedYD < box.bottomEdge;
         
@@ -83,12 +85,15 @@ class hurtBox {
     }
 
     collide(box, controller, Forward){
-        this.updateCollisionStatements(box);
+        this.updateCollisionStatements(box, Forward);
         if(this.rightCollision && Forward == 1) {
+            console.log(box);
+            console.log('RIGHT');
             controller.vx = 0;
         }
         if(this.leftCollision && Forward == -1){
-            
+            console.log(box);
+            console.log('LEFT');
             controller.vx = 0;
         }
         
