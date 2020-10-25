@@ -13,17 +13,17 @@ function setupCharacter(){
 
     sprite = sprite;
 
-    sprite.height = 39.506;
-    sprite.width = 40;
-    sprite.x = 16*6;
-    sprite.y = 192 - (16*3);
+    sprite.height = 35;
+    sprite.width = 47;
+    sprite.x = 16;
+    sprite.y = 192 - (16*6);
     console.log(sprite.x);
     console.log(sprite.y);
     sprite.play();
     sprite.animationSpeed = 0.1;
 
     spriteHurtBox = new hurtBox(sprite);
-    spriteHurtBox.calculateCharEdges()
+    spriteHurtBox.calculateCharEdges();
     gameController = new controller(sprite);
     
 
