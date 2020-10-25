@@ -55,33 +55,54 @@ class hurtBox {
     }
 
     updateCollisionStatements(box, forward){
-        let updatedXR = this.rightEdge + this.vx;
-        let updatedXL = this.leftEdge + this.vx;
-        let updatedYT = this.topEdge + this.vy;
-        let updatedYD = this.bottomEdge + this.vy;
 
-        let RC = false;
-        let LC = false;
-        let UC = false;
-        let DC = false;
-        
-        if(forward == 1){
-            RC = updatedXR > box.leftEdge && updatedXR < box.rightEdge;
-        } else if(forward == -1){
-            LC = updatedXL < box.rightEdge && updatedXL > box.leftEdge;
+        let updatedXR;
+        updatedXR = this.rightEdge + this.vx;
+        let updatedXL;
+        updatedXL = this.leftEdge + this.vx;
+        let updatedYT;
+        updatedYT = this.topEdge + this.vy;
+        let updatedYD;
+        updatedYD = this.bottomEdge + this.vy;
+
+        if (box.topEdge >= this.bottomEdge) {
+            if(box.topEdge <= updatedYD && box.bottomEdge >= updatedYD){
+                this.downCollision = true;
+            }
+        } else {
+            this.downCollision = false;
         }
-        UC = updatedYT < box.bottomEdge && updatedYT > box.topEdge;
-        DC = updatedYD > box.topEdge && updatedYD < box.bottomEdge;
-        
 
-        this.rightCollision = RC;
-        this.leftCollision = LC;
-        this.upCollision = UC;
-        this.downCollision = DC;
+        if (box.bottomEdge <= this.topEdge){
+            if(box.bottomEdge >= updatedYT && box.topEdge <= updatedYT){
+                this.upCollision = true
+            }
+        } else {
+            this.upCollision = false;
+        }
+
+        if (box.leftEdge >= this.rightEdge && forward == 1){
+            if(box.leftEdge <= updatedXR && box.rightEdge <= updatedXR){
+                this.leftCollision = true;
+            }
+        } else {
+            this.leftCollision = false;
+        }
+        if (box.rightEdge <= this.leftEdge && forward == -1){
+            if(box.rightEdge >= updatedXL && box.leftEdge <= updatedXL){
+                this.rightCollision = true;
+            }
+        } else {
+            this.rightCollision = false;
+        }
     }
 
     isCollide(){
         return this.rightCollision || this.leftCollision || this.upCollision || this.downCollision;
+    }
+
+    isCollideHori(){
+        return this.rightCollision || this.leftCollision;
     }
 
     collide(box, controller, Forward){
