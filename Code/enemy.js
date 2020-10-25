@@ -95,7 +95,7 @@ app.ticker.add((time) => {
             let testX1 = goombaStat.x + 2;
             let testX2 = goombaStat.x + tileSize  - 3;
             let testY = goombaStat.y + tileSize * 2;
-            console.log(Goomba.y + 80)
+           // console.log(Goomba.y + 80)
             if (testY > map.height * tileSize|| testCollision(testX1, testY) || testCollision(testX2, testY)) {
               goombaStat.vy = 0;
               break;
