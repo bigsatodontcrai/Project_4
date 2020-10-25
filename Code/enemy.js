@@ -1,3 +1,4 @@
+
 app.view.setAttribute('tabindex', 0);
 const tileSize = 16;
 const SCALE = 2;
@@ -159,3 +160,4 @@ app.ticker.add((time) => {
 
     }
 });
+

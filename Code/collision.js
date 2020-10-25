@@ -1,3 +1,12 @@
+/**
+ * @file this file handles collisions between two sprites
+ */
+/**
+ * findIndexFromCoordinates - takes coordinates to find the index
+ * @param {number} x 
+ * @param {number} y 
+ * @return number
+ */
 function findIndexFromCoordinate(x, y) {
     let temp1 = (50 * (y / 16)) - 1;
     let temp2 = x / 16;
@@ -5,10 +14,21 @@ function findIndexFromCoordinate(x, y) {
 
 }
 
+/**
+ * thePosition - finds the position of object
+ * @param {number} num 
+ * @param {number} px 
+ * @return number
+ */
 function thePosition(num, px) {
     return Math.floor(num / px) * px;
 }
 
+/**
+ * getPos - gets the position of the sprite element
+ * @param {element} box - PIXI sprite element
+ * @return arr[][]
+ */
 function getPos(box) {
     
     let boxArray = [[]];
@@ -49,7 +69,11 @@ function getPos(box) {
 }
 
 
-
+/**
+ * indexArray - make an array of the index
+ * @param {element} box - PIXI sprite element
+ * @return arr[]
+ */
 function indexArray(box) {
     let thisArray = getPos(box);
     let temp1;
@@ -65,6 +89,11 @@ function indexArray(box) {
 
 
 //this newSpriteArray returns an array with all of the hurt boxes of neighboring tiles
+/**
+ * newSpriteArray - returns an array with all of the hurtBoxes of neighboring tiles
+ * @param {element} box - PIXI sprite element
+ * @return arr[]
+ */
 function newSpriteArray(box) {
     let spriteArray = new Array(12);
     let ind = indexArray(box);

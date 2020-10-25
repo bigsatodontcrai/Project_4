@@ -1,5 +1,8 @@
-
 class controller {
+    /**
+     * class contructor
+     * @param {element} sprite - PIXI sprite element
+     */
     constructor(sprite){
         this.jumpspeed = -0.5;
         this.fallspeed = 0.5;
@@ -13,6 +16,12 @@ class controller {
         //this.time = 0;
     }
 
+    /**
+     * movement - controlls the distances of how far the character moves on each keystroke
+     * @param {KeyboardEvent} e 
+     * @param {hurtBox} spriteHurtBox 
+     * @return boolean 
+     */
     movement (e, spriteHurtBox) {
         this.curr.push(e.key);
         this.size++;
@@ -31,6 +40,10 @@ class controller {
          
     }
 
+    /**
+     * move - moves the character accross the screen
+     * @return boolean
+     */
     move(){
         //alert('hey ' + this.vy);
         
@@ -41,22 +54,38 @@ class controller {
         return true;
     }
 
+    /**
+     * calculateParameters - calculate the parameters of the character 
+     */
     calculateParameters(){
         this.hori = this.sprite.x;
         this.vert = this.sprite.y;
     }
 
+    /**
+     * moveLeft - moves the character left
+     * @return boolean
+     */
     moveLeft(){
         this.sprite.x -= this.vx;
         return true;
     }
 
+    /**
+     * Jump - the character jumps
+     * @return boolean
+     */
     Jump(){
         this.sprite.y -= this.vy;
         //this.sprite.y += this.vy;
         return true;
     }
 
+    /**
+     * stopMovement - stops the character from moving if it hits something
+     * @param {KeyboardEvent} e 
+     * @param {hurtBox} spriteHurtBox 
+     */
     stopMovement(e, spriteHurtBox){
         if (e.key == 'd' || e.key == 'a') {
             if (spriteHurtBox.downCollision) {
@@ -69,19 +98,34 @@ class controller {
         }
     }
 
+    /**
+     * clearList - clears the list
+     */
     clearList(){
         this.curr = [];
     }
 }
 
+/**
+ * 
+ * @param {KeyBoardEvent} e 
+ */
 function keypress(e) {
     controller.keyP(e);
 }
 
+/**
+ * keydown - 
+ * @param {KeyBoardEvent} e 
+ */
 function keydown(e) {
 
 }
 
+/**
+ * keyup - 
+ * @param {KeyBoardEvent} e 
+ */
 function keyup(e) {
 
 }
