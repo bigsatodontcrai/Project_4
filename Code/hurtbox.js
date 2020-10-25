@@ -1,4 +1,11 @@
+/**
+ * @file hurtbox.js sets up the class hurtBox and its functions
+ */
 class hurtBox {
+    /**
+     * class contructor
+     * @param {PIXI sprite element} sprite 
+     */
     constructor(sprite) {
         this.sprite = sprite;
         this.height = sprite.height;
@@ -18,6 +25,9 @@ class hurtBox {
         this.downCollision = false;
     }
 
+    /**
+     * calculateEdges - calculates the edges of the hurtbox
+     */
     calculateEdges(){
         this.rightEdge = this.sprite.x + this.sprite.width;
         this.leftEdge = this.sprite.x;
@@ -28,6 +38,9 @@ class hurtBox {
         //for the other objects
     }
 
+    /**
+     * calculateCharEdges - calcutlates the character's edges
+     */
     calculateCharEdges(){
         this.rightEdge = this.sprite.x + 0.66 * sprite.width;
         this.leftEdge = this.sprite.x + 0.26 * sprite.width;
@@ -43,17 +56,30 @@ class hurtBox {
 
     }//yes redundant function but for now to compensate for the assets offset
 
+    /**
+     * updateVelocity - updates the velocity of the controller object
+     * @param {controller} controller 
+     */
     updateVelocity(controller){
         this.vx = controller.vx;
         this.vy = controller.vy;
     }
 
+    /**
+     * updateHurtBox - updates the hurtbox
+     * @param {controller} controller 
+     */
     updateHurtBox(controller){
         this.updateVelocity(controller);
         this.calculateCharEdges();
         
     }
 
+    /**
+     * updateCollisionStatement - updates the collison statement 
+     * @param {PIXI sprite element} box 
+     * @param {number} foward 
+     */
     updateCollisionStatements(box, forward){
 
         let updatedXR;
@@ -95,14 +121,29 @@ class hurtBox {
         }
     }
 
+    /**
+     * isCollide - returns if true if there was a collision
+     * @return boolean
+     */
     isCollide(){
         return this.rightCollision || this.leftCollision || this.upCollision || this.downCollision;
     }
 
+    /**
+     * isCollideHori - returns true if there was a collision on the right or left side of a box
+     * @return boolean
+     */
     isCollideHori(){
         return this.rightCollision || this.leftCollision;
     }
 
+    /**
+     * collide - calculates if a collision happened
+     * @param {PIXI sprite element} box 
+     * @param {controller} controller 
+     * @param {number} Forward 
+     * @return boolean
+     */
     collide(box, controller, Forward){
         this.updateCollisionStatements(box, Forward);
         if(this.rightCollision && Forward == 1) {
