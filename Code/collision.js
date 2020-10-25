@@ -26,7 +26,7 @@ function thePosition(num, px) {
 
 /**
  * getPos - gets the position of the sprite element
- * @param {PIXI sprite element} box 
+ * @param {element} box - PIXI sprite element
  * @return arr[][]
  */
 function getPos(box) {
@@ -56,7 +56,7 @@ function getPos(box) {
 
 /**
  * indexArray - make an array of the index
- * @param {PIXI sprite element} box 
+ * @param {element} box - PIXI sprite element
  * @return arr[]
  */
 function indexArray(box) {
@@ -75,7 +75,7 @@ function indexArray(box) {
 //this newSpriteArray returns an array with all of the hurt boxes of neighboring tiles
 /**
  * newSpriteArray - returns an array with all of the hurtBoxes of neighboring tiles
- * @param {PIXI sprite element} box 
+ * @param {element} box - PIXI sprite element
  * @return arr[]
  */
 function newSpriteArray(box) {

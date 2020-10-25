@@ -5,7 +5,7 @@
  * updateState - Updates the state of the charcter
  * @param {number} vx x-direction velocity 
  * @param {number} vy y-direction velocity 
- * @param {PIXI sprite element} sprite 
+ * @param {element} sprite - PIXI sprite element
  * @return string - state of the character
  */
 function updateState(vx, vy, sprite) {

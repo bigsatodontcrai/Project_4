@@ -4,7 +4,7 @@
 class controller {
     /**
      * class contructor
-     * @param {PIXI sprite element} sprite 
+     * @param {element} sprite - PIXI sprite element
      */
     constructor(sprite){
         this.sprite = sprite;

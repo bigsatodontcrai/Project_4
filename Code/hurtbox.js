@@ -4,7 +4,7 @@
 class hurtBox {
     /**
      * class contructor
-     * @param {PIXI sprite element} sprite 
+     * @param {element} sprite - PIXI sprite element
      */
     constructor(sprite) {
         this.sprite = sprite;
@@ -77,7 +77,7 @@ class hurtBox {
 
     /**
      * updateCollisionStatement - updates the collison statement 
-     * @param {PIXI sprite element} box 
+     * @param {element} box - PIXI sprite element
      * @param {number} foward 
      */
     updateCollisionStatements(box, forward){
@@ -139,7 +139,7 @@ class hurtBox {
 
     /**
      * collide - calculates if a collision happened
-     * @param {PIXI sprite element} box 
+     * @param {element} box - PIXI sprite element
      * @param {controller} controller 
      * @param {number} Forward 
      * @return boolean
