@@ -20,7 +20,8 @@ const app = new PIXI.Application(
 
 
 
-
+let jumpspeed = -0.5;
+let fallspeed = 0.5;
 let sprite;
 let state = 'idle';
 

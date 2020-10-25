@@ -160,7 +160,6 @@ class hurtBox {
         let vert = this.vertCollision(rect2);
         let diagonal = this.diagCollision(rect2);
         if(hori != 0 && this.vx == 0){
-            //this.sprite.x += hori;
             controller.vx = 0;
         }
         if(vert != 0 && this.vx == 0){

@@ -30,7 +30,7 @@ function test(box){
 function characterMovement(){
     //console.log(state);
     if(state != 'jumping'){
-        gameController.vy = 3;
+        gameController.vy = fallspeed;
     }
     spriteHurtBox.updateHurtBox(gameController);
     try {

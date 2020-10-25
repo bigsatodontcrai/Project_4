@@ -1,5 +1,8 @@
+
 class controller {
     constructor(sprite){
+        this.jumpspeed = -0.5;
+        this.fallspeed = 0.5;
         this.sprite = sprite;
         this.hori = sprite.x;
         this.vert = sprite.y;
@@ -21,7 +24,7 @@ class controller {
             if(spriteHurtBox.downCollision){
                 this.vy = -3;
             } else {
-                this.vy = 3;
+                this.vy = 0.5;
             }
         } 
         return true;
@@ -60,7 +63,7 @@ class controller {
                 this.vx = 0;
             }
         } if (e.key == 'w' && spriteHurtBox.downCollision == false) {
-            this.vy = 3;
+            this.vy = 0.5;
         } else if (spriteHurtBox.downCollision == true) {
             this.vy = 0;
         }
