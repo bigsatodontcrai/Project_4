@@ -72,8 +72,6 @@ class hurtBox {
         } else {
             this.downCollision = false;
         }
-
-        
             if(box.bottomEdge >= updatedYT && box.topEdge <= updatedYT){
                 this.upCollision = true
             }
@@ -127,7 +125,9 @@ class hurtBox {
         if (this.downCollision) {
             console.log('DOWN');
             box.sprite.height = 13;
-            controller.vy = 0;
+            if(state != 'jumping') {
+                controller.vy = 0;
+            }
         }
         return this.isCollide();
     }
