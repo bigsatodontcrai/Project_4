@@ -53,17 +53,13 @@ class controller {
 
     stopMovement(e, spriteHurtBox){
         if (e.key == 'd' || e.key == 'a') {
-            if (spriteHurtBox.downCollision == true) {
+            if (spriteHurtBox.downCollision) {
                 this.vx = 0;
             }
         } if (e.key == 'w'){
             this.vy = 6;
-            
-        }
-        
-        else if (spriteHurtBox.downCollision == false) {
+        } if (e.key == 'w' && spriteHurtBox.downCollision == false) {
             this.vy = 6;
-
         } else if (spriteHurtBox.downCollision == true) {
             this.vy = 0;
         }

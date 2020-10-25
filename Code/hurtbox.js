@@ -110,23 +110,23 @@ class hurtBox {
         if(this.rightCollision && Forward == 1) {
             console.log(box);
             console.log('RIGHT');
-            box.sprite.width = 13;
+            box.sprite.height = 13;
             controller.vx = 0;
         }
         if(this.leftCollision && Forward == -1){
             console.log(box);
             console.log('LEFT');
-            box.sprite.width = 13;
+            box.sprite.height = 13;
             controller.vx = 0;
         }
         if(this.upCollision){
             console.log('UP');
-            box.sprite.width = 13;
+            box.sprite.height = 13;
             controller.vy = 0;
         } 
         if (this.downCollision) {
             console.log('DOWN');
-            box.sprite.width = 13;
+            box.sprite.height = 13;
             controller.vy = 0;
         }
         return this.isCollide();
