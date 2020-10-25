@@ -13,16 +13,26 @@ function setupCharacter(){
 
     sprite = sprite;
 
-    sprite.height = 39.5;
+    sprite.height = 39.506;
     sprite.width = 40;
     sprite.x = 16*6;
-    sprite.y = 192 - 16*5;
+    sprite.y = 192 - (16*3);
+    console.log(sprite.x);
+    console.log(sprite.y);
     sprite.play();
     sprite.animationSpeed = 0.1;
 
     spriteHurtBox = new hurtBox(sprite);
+    spriteHurtBox.calculateCharEdges()
     gameController = new controller(sprite);
+    
 
+}
+
+function test(box){
+    let thing = false;
+    thing = spriteHurtBox.collide(box, gameController, Forward);
+    
 }
 
 /**
@@ -30,47 +40,31 @@ function setupCharacter(){
  * @return void
  */
 function characterMovement(){
-
-        let thing = false;
-        if (state != 'jumping') {
-            gameController.vy = 3;
-        }
-        spriteHurtBox.updateHurtBox(gameController);
+    console.log(state);
+    if(state != 'jumping'){
+        gameController.vy = 3;
+    }
+    spriteHurtBox.updateHurtBox(gameController);
+    try {
         arrayOfSprites = newSpriteArray(spriteHurtBox);
-        console.log(spriteHurtBox);
-        console.log(arrayOfSprites);
-        console.log(sprite.y);
+    } catch(error) {
+        console.log('no');
+    }
+    console.log(spriteHurtBox);
+    console.log(arrayOfSprites);
+    arrayOfSprites.forEach(box => test(box));
+    /*
+    try {
+        arrayOfSprites.forEach(box => console.log(box));
+        arrayOfSprites.forEach(box => test(box));
+    } catch (error) {
+        console.log('you died');
+        sprite.x = -16;
+        sprite.y = 140;
+        sprite.animationSpeed = 0.1;
+    }*/
         
-        for (let i = 0; i < 8; i++) {
-
-            if (arrayOfSprites[i] == 0) {
-                if(i == 0||1){
-                    spriteHurtBox.upCollision = false;
-                } else if(i == 2||3){
-                    spriteHurtBox.rightCollision = false;
-                } else if (i == 4||5){
-                    spriteHurtBox.downCollision = false;
-                } else if (i == 6||7){
-                    spriteHurtBox.leftCollision = false;
-                }
-            }
-            else {
-                console.log('sup');
-                try {
-                    thing = spriteHurtBox.collide(arrayOfSprites[i], gameController, Forward);
-                } catch(error){
-                    alert('you died.');
-                    sprite.x = -16;
-                    sprite.y = 140;
-                    sprite.animationSpeed = 0.1;
-                }
-                console.log(thing);
-            }
-        }
-        gameController.move();
-        console.log(gameController.vx);
-        console.log(gameController.vy);
-        console.log(Forward);
+    gameController.move();
 
         
     
@@ -123,7 +117,5 @@ function playCharacter(){
     }
     
 
-
-    
 }
 
