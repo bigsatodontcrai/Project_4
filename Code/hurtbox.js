@@ -96,9 +96,9 @@ class hurtBox {
     horiCollision(rect2){
         this.nextX = this.x + this.vx;
         let isCollide = this.AABBCollision(this, rect2);
+        console.log("horizontal collision: " + isCollide);
         
-        
-        if(isCollide){
+        if(this.vx != 0 && isCollide){
             if(this.vx >= 0){
                 return rect2.x - (this.nextX + this.width)
             } else {
@@ -113,7 +113,7 @@ class hurtBox {
         this.nextY = this.y + this.vy;
         let isCollide = this.AABBCollision(this, rect2);
         
-        if(isCollide){
+        if(this.vy != 0 && isCollide){
             if(this.vy >= 0){
                 return rect2.y - (this.nextY + this.height);
             } else {
@@ -128,10 +128,10 @@ class hurtBox {
         this.nextX = this.x + this.vx;
         this.nextY = this.y + this.vy;
 
-        const NE = this.vx >= 0 && this.vy <= 0;
-        const NW = this.vx <= 0 && this.vy <=0;
-        const SE = this.vx >= 0 && this.vy >= 0;
-        const SW = this.vx <= 0 && this.vy >= 0;
+        const NE = this.vx > 0 && this.vy < 0;
+        const NW = this.vx < 0 && this.vy < 0;
+        const SE = this.vx > 0 && this.vy > 0;
+        const SW = this.vx < 0 && this.vy > 0;
 
         if(this.AABBCollision(this, rect2)){
             if(NE) {
@@ -165,7 +165,7 @@ class hurtBox {
     updateCollisionStatements(rect2, controller){
         //console.log('update collision statements test');
         if(rect2.immutable == false){
-            //console.log('immutable test');
+            console.log('immutable test');
             if(this.horiCollision(rect2) > 0){
                 controller.vx = -3;
             } else if(this.horiCollision <= 0){
@@ -180,7 +180,10 @@ class hurtBox {
         let hori = this.horiCollision(rect2);
         let vert = this.vertCollision(rect2);
         let diagonal = this.diagCollision(rect2);
-        if(hori != 0 && this.vx == 0){
+        console.log(hori);
+        console.log(vert);
+        console.log(diagonal);
+        if(hori != 0 && this.vy == 0){
             controller.vx = 0;
         }
         if(vert != 0 && this.vx == 0){
