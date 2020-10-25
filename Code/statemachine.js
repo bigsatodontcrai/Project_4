@@ -1,3 +1,12 @@
+/**
+ * @file statemachine.js updates the state of the character 
+ */
+/**
+ * 
+ * @param {number} vx x-direction velocity 
+ * @param {number} vy y-direction velocity 
+ * @param {PIXI sprite element} sprite 
+ */
 function updateState(vx, vy, sprite) {
     let thisState = '';
     if (vx != 0 && vy == 0) {
