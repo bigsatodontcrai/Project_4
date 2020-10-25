@@ -66,7 +66,7 @@ class hurtBox {
         updatedYD = this.bottomEdge + this.vy;
 
         if (box.topEdge >= this.bottomEdge) {
-            if(box.topEdge <= updatedYD){
+            if(box.topEdge <= updatedYD && box.bottomEdge >= updatedYD){
                 this.downCollision = true;
             }
         } else {
@@ -74,7 +74,7 @@ class hurtBox {
         }
 
         if (box.bottomEdge <= this.topEdge){
-            if(box.bottomEdge >= updatedYT){
+            if(box.bottomEdge >= updatedYT && box.topEdge <= updatedYT){
                 this.upCollision = true
             }
         } else {
@@ -82,14 +82,14 @@ class hurtBox {
         }
 
         if (box.leftEdge >= this.rightEdge && forward == 1){
-            if(box.leftEdge <= updatedXR){
+            if(box.leftEdge <= updatedXR && box.rightEdge <= updatedXR){
                 this.leftCollision = true;
             }
         } else {
             this.leftCollision = false;
         }
         if (box.rightEdge <= this.leftEdge && forward == -1){
-            if(box.rightEdge >= updatedXL){
+            if(box.rightEdge >= updatedXL && box.leftEdge <= updatedXL){
                 this.rightCollision = true;
             }
         } else {
