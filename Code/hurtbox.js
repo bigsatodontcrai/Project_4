@@ -37,8 +37,8 @@ class hurtBox {
         this.width = this.rightEdge - this.leftEdge;
         this.height = this.topEdge - this.bottomEdge;
 
-        console.log(this.topEdge);
-        console.log(this.bottomEdge);
+      //  console.log(this.topEdge);
+    //    console.log(this.bottomEdge);
         
 
     }//yes redundant function but for now to compensate for the assets offset
@@ -106,24 +106,24 @@ class hurtBox {
     collide(box, controller, Forward){
         this.updateCollisionStatements(box, Forward);
         if(this.rightCollision && Forward == 1) {
-            console.log(box);
-            console.log('RIGHT');
+        //    console.log(box);
+         //   console.log('RIGHT');
             box.sprite.height = 13;
             controller.vx = 0;
         }
         if(this.leftCollision && Forward == -1){
-            console.log(box);
-            console.log('LEFT');
+         //   console.log(box);
+        //    console.log('LEFT');
             box.sprite.height = 13;
             controller.vx = 0;
         }
         if(this.upCollision){
-            console.log('UP');
+         //   console.log('UP');
             box.sprite.height = 13;
             controller.vy = 0;
         } 
         if (this.downCollision) {
-            console.log('DOWN');
+          //  console.log('DOWN');
             box.sprite.height = 13;
             if(state != 'jumping') {
                 controller.vy = 0;

@@ -1,7 +1,7 @@
 function setupCharacter(){
     resource = PIXI.Loader.shared.resources["./Assets/adventurer-Sheet.json"].spritesheet;
     sprite = new PIXI.AnimatedSprite(resource.animations.idle);
-    console.log('its lit');
+ //   console.log('its lit');
 
     sprite = sprite;
 
@@ -26,9 +26,9 @@ function characterMovement(){
         }
         spriteHurtBox.updateHurtBox(gameController);
         arrayOfSprites = newSpriteArray(spriteHurtBox);
-        console.log(spriteHurtBox);
-        console.log(arrayOfSprites);
-        console.log(sprite.y);
+     //   console.log(spriteHurtBox);
+     //   console.log(arrayOfSprites);
+    //    console.log(sprite.y);
         
         for (let i = 0; i < 8; i++) {
 
@@ -44,7 +44,7 @@ function characterMovement(){
                 }
             }
             else {
-                console.log('sup');
+              //  console.log('sup');
                 try {
                     thing = spriteHurtBox.collide(arrayOfSprites[i], gameController, Forward);
                 } catch(error){
@@ -53,13 +53,13 @@ function characterMovement(){
                     sprite.y = 140;
                     sprite.animationSpeed = 0.1;
                 }
-                console.log(thing);
+               // console.log(thing);
             }
         }
         gameController.move();
-        console.log(gameController.vx);
-        console.log(gameController.vy);
-        console.log(Forward);
+       // console.log(gameController.vx);
+      //  console.log(gameController.vy);
+       // console.log(Forward);
 
         
     
