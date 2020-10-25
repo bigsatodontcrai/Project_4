@@ -16,8 +16,7 @@ function getPos(box) {
     let xoffset = 0;
     let pos = thePosition(box.leftEdge, 16) + xoffset;
     let mos = thePosition(box.bottomEdge, 16) - 16;
-    console.log(pos);
-    console.log(mos);
+    
 
     boxArray[0] = [pos - 16, mos - 16*3];//top left
     boxArray.push([pos, mos - 16*3]);//top right

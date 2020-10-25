@@ -10,8 +10,6 @@ function setupCharacter(){
     sprite.anchor.set(0.5, 0);
     sprite.x = 16;
     sprite.y = 192 - (16);
-    console.log(sprite.x);
-    console.log(sprite.y);
     sprite.play();
     sprite.animationSpeed = 0.1;
 
@@ -40,24 +38,9 @@ function characterMovement(){
     } catch(error) {
         console.log('no');
     }
-    console.log(spriteHurtBox);
-    console.log(arrayOfSprites);
+    
     arrayOfSprites.forEach(box => test(box));
-    /*
-    try {
-        arrayOfSprites.forEach(box => console.log(box));
-        arrayOfSprites.forEach(box => test(box));
-    } catch (error) {
-        console.log('you died');
-        sprite.x = -16;
-        sprite.y = 140;
-        sprite.animationSpeed = 0.1;
-    }*/
-        
-    
-
-        
-    
+      
 }
 
 function playCharacter(){

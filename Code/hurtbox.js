@@ -47,13 +47,6 @@ class hurtBox {
         this.x = this.leftEdge;
         this.y = this.topEdge;
         
-
-        
-        //console.log('SUG');
-        //console.log(this.topEdge);
-        //console.log(this.bottomEdge);
-        console.log(this.x/16);
-        console.log(this.y/16);
         
 
     }//yes redundant function but for now to compensate for the assets offset
@@ -82,8 +75,7 @@ class hurtBox {
     horiCollision(rect2){
         this.nextX = this.x + this.vx;
         let isCollide = this.AABBCollision(this, rect2);
-        console.log('horizontal collision: ' + isCollide);
-        console.log(this.vx);
+        ;
         
         if(isCollide){
             if(this.vx >= 0){
@@ -99,12 +91,12 @@ class hurtBox {
     vertCollision(rect2){
         this.nextY = this.y + this.vy;
         let isCollide = this.AABBCollision(this, rect2);
-        console.log('vertical collision: ' + isCollide);
+        
         if(isCollide){
             if(this.vy >= 0){
                 return rect2.y - (this.nextY + this.height);
             } else {
-                //alert('up collision');
+                
                 return rect2.y + rect2.height - this.nextY;
             }
         }
