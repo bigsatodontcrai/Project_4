@@ -56,8 +56,6 @@ class hurtBox {
 
     updateCollisionStatements(box, forward){
 
-        
-
         let updatedXR;
         updatedXR = this.rightEdge + this.vx;
         let updatedXL;
@@ -83,14 +81,14 @@ class hurtBox {
             this.upCollision = false;
         }
 
-        if (box.leftEdge >= this.rightEdge && Forward == 1){
+        if (box.leftEdge >= this.rightEdge && forward == 1){
             if(box.leftEdge <= updatedXR){
                 this.leftCollision = true;
             }
         } else {
             this.leftCollision = false;
         }
-        if (box.rightEdge <= this.leftEdge && Forward == -1){
+        if (box.rightEdge <= this.leftEdge && forward == -1){
             if(box.rightEdge >= updatedXL){
                 this.rightCollision = true;
             }
