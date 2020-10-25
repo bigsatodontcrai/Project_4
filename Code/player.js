@@ -1,3 +1,11 @@
+/**
+ * @file player.js manages the character and how it responds to the player's commands
+ */
+
+ /**
+  * setupCharacter - Sets up the character
+  * @return void
+  */
 function setupCharacter(){
     resource = PIXI.Loader.shared.resources["./Assets/adventurer-Sheet.json"].spritesheet;
     sprite = new PIXI.AnimatedSprite(resource.animations.idle);
@@ -17,7 +25,10 @@ function setupCharacter(){
 
 }
 
-
+/**
+ * characterMovement - Controls charcters movement
+ * @return void
+ */
 function characterMovement(){
 
         let thing = false;
@@ -65,6 +76,10 @@ function characterMovement(){
     
 }
 
+/**
+ * playCharacter - Allows the user to move the character
+ * @return void
+ */
 function playCharacter(){
     const newResource = PIXI.Loader.shared.resources['./Assets/adventurer-Sheet.json'];
     setupCharacter();
