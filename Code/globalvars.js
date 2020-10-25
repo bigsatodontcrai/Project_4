@@ -1,5 +1,5 @@
 /**
- * @file globalvars.js holds all of our global variables that are used throughout
+ * @file globalvars.js holds all of our global variables that are used throughout the game
  */
 const Textures = {
     Platform: "./Assets/Assets.json",

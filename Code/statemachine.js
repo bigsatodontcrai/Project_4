@@ -2,7 +2,7 @@
  * @file statemachine.js updates the state of the character 
  */
 /**
- * 
+ * Updates the state of the charcter
  * @param {number} vx x-direction velocity 
  * @param {number} vy y-direction velocity 
  * @param {PIXI sprite element} sprite 
