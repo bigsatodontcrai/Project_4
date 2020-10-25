@@ -2,7 +2,7 @@
 app.view.setAttribute('tabindex', 0);
 const tileSize = 16;
 const SCALE = 2;
-
+let bumped = true;
 
 
 
@@ -39,9 +39,9 @@ let collisionMap =[ 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   
                     0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   0,   0,   0,   0, 
                     0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
                     0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
-                    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1, 
+                    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1, 
                     0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1,   1,   0,   0,   0,   0,   1,   1,   0,   0,   0,   1,   1, 
-                    1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   0,   0,   1,   1, 
+                    1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   0,   0,   1,   1, 
                     1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   1,   1,   1,   1, 
                     1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   1,   0,   0,   1,   1,   1,   1,   1,   1,   1,   1,   1]
 
@@ -59,7 +59,7 @@ let Goomba = new PIXI.Sprite.from("./Assets/GoombaSquare.png");
 app.stage.addChild(Goomba)
 
 let goombaStat = {
-    x: 0, y: 0,
+    x: 335, y: 0,
     vx: 0, vy: 0,
     direction: 0,
     jumped: false,
@@ -70,18 +70,18 @@ let inAir = true;
 
 app.ticker.add((time) => {
     Goomba.x = goombaStat.x;
-    Goomba.y = goombaStat.y + 16;
+    Goomba.y = goombaStat.y + tileSize;
 
     goombaStat.vy = Math.min(5, goombaStat.vy + 1)
 
-    if(goombaStat.vx > 0)
-    {
-        goombaStat.vx -= 1;
-    }
-    if(goombaStat.vx < 0)
-    {
-        goombaStat.vx += 1;
-    }
+    // if(goombaStat.vx > 0)
+    // {
+    //     goombaStat.vx -= 1;
+    // }
+    // if(goombaStat.vx < 0)
+    // {
+    //     goombaStat.vx += 1;
+    // }
 
     let touchingGround = testCollision(
         goombaStat.x + 2,
@@ -92,11 +92,11 @@ app.ticker.add((time) => {
 
     if (goombaStat.vy > 0) {
         for (let i = 0; i < goombaStat.vy; i++) {
-            let testX1 = goombaStat.x + 2;
-            let testX2 = goombaStat.x + tileSize  - 3;
+            let pointX1 = goombaStat.x + 2;
+            let pointX2 = goombaStat.x + tileSize  - 3;
             let testY = goombaStat.y + tileSize * 2;
            // console.log(Goomba.y + 80)
-            if (testY > map.height * tileSize|| testCollision(testX1, testY) || testCollision(testX2, testY)) {
+            if (testY > map.height * tileSize|| testCollision(pointX1, testY) || testCollision(pointX2, testY)) {
               goombaStat.vy = 0;
               break;
             }
@@ -106,10 +106,10 @@ app.ticker.add((time) => {
     
     if (goombaStat.vy < 0) {
         for (let i = goombaStat.vy; i < 0; i++) {
-          let testX1 = goombaStat.x + 2;
-          let testX2 = goombaStat.x + tileSize - 3;
+          let pointX1 = goombaStat.x + 2;
+          let pointX2 = goombaStat.x + tileSize - 3;
           let testY = goombaStat.y + tileSize - 16;
-          if (testCollision(testX1, testY) || testCollision(testX2, testY)) {
+          if (testCollision(pointX1, testY) || testCollision(pointX2, testY)) {
             goombaStat.vy = 0;
             break;
           }
@@ -126,9 +126,10 @@ app.ticker.add((time) => {
           let testY3 = goombaStat.y + tileSize * 2 - 1; //
           if (testX >= map.width * tileSize || testCollision(testX, testY1) || testCollision(testX, testY2) || testCollision(testX, testY3)) {
             goombaStat.vx = 0;
+            bumped = false;
             break;
           }
-          goombaStat.x = goombaStat.x + 1;
+          goombaStat.x = goombaStat.x + 0.3;
         }
       }
       
@@ -143,24 +144,19 @@ app.ticker.add((time) => {
           let testY3 = goombaStat.y + tileSize * 2 - 1; //
           if (testX < 0 || testCollision(testX, testY1) || testCollision(testX, testY2) || testCollision(testX, testY3)) {
             goombaStat.vx = 0;
+            bumped = true;
             break;
           }
-          goombaStat.x = goombaStat.x - 1;
+          goombaStat.x = goombaStat.x - 0.3;
         }
       }
 
       //console.log(Goomba.x)
 
-      if (kb.pressed.ArrowRight) {
-        goombaStat.vx = 2;
+      if (bumped == true) {
+        goombaStat.vx = 0.1;
       }
-      if (kb.pressed.ArrowLeft) {
-        goombaStat.vx = -2;
-      }
-
-
-      if (kb.pressed.ArrowUp) {
-        goombaStat.vy = -5;
-
+      if (bumped == false) {
+        goombaStat.vx = -0.1;
       }
 });
