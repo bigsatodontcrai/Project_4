@@ -4,14 +4,14 @@ function updateState(vx, vy, sprite) {
         sprite.animationSpeed = 0.7;
         if (vx > 0) {
             if (Forward == -1) {
-                sprite.x = sprite.x - sprite.width;
+                //sprite.x = sprite.x - sprite.width;
             }
             Forward = 1;
             sprite.scale.x = Math.abs(sprite.scale.x) * Forward;
 
         } else if (vx < 0) {
             if (Forward == 1) {
-                sprite.x = sprite.x + sprite.width;
+                //sprite.x = sprite.x + sprite.width;
             }
             Forward = -1;
             sprite.scale.x = Math.abs(sprite.scale.x) * Forward;
@@ -19,10 +19,10 @@ function updateState(vx, vy, sprite) {
         }
         thisState = 'running';
     } else if (vy > 0) {
-        sprite.animationSpeed = 0.7;
+        sprite.animationSpeed = 0.05;
         thisState = 'falling';
     } else if (vy < 0) {
-        sprite.animationSpeed = 0.5;
+        sprite.animationSpeed = 0.05;
         thisState = 'jumping';
     } else {
         sprite.animationSpeed = 0.1;

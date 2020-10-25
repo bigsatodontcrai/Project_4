@@ -36,22 +36,24 @@ class hurtBox {
         //this.x = this.sprite.x + 0.26 * this.sprite.width;
         //this.y = this.sprite.y + 0.16 * this.sprite.height;
 
-        this.rightEdge = this.sprite.x + 0.68 * this.sprite.width;
-        this.leftEdge = this.sprite.x + 0.34 * this.sprite.width;
+        this.width = 0.34 * this.sprite.width;
+        this.height = 0.7837 * this.sprite.height;
+
+        this.rightEdge = this.sprite.x + 0.5 * this.width;
+        this.leftEdge = this.sprite.x - 0.5 * this.width;
         this.topEdge = this.sprite.y + (7/37) * this.sprite.height;
         this.bottomEdge = this.sprite.y + (36/37) * this.sprite.height;
 
         this.x = this.leftEdge;
         this.y = this.topEdge;
-        this.width = 0.34 * this.sprite.width;
-        this.height = 0.7837 * this.sprite.height;
+        
 
         
         //console.log('SUG');
         //console.log(this.topEdge);
         //console.log(this.bottomEdge);
-        //console.log(this.x);
-        //console.log(this.y);
+        console.log(this.x/16);
+        console.log(this.y/16);
         
 
     }//yes redundant function but for now to compensate for the assets offset
@@ -80,8 +82,8 @@ class hurtBox {
     horiCollision(rect2){
         this.nextX = this.x + this.vx;
         let isCollide = this.AABBCollision(this, rect2);
-        //console.log('horizontal collision: ' + isCollide);
-        //console.log(this.vx);
+        console.log('horizontal collision: ' + isCollide);
+        console.log(this.vx);
         
         if(isCollide){
             if(this.vx >= 0){
@@ -97,11 +99,12 @@ class hurtBox {
     vertCollision(rect2){
         this.nextY = this.y + this.vy;
         let isCollide = this.AABBCollision(this, rect2);
-        //console.log('vertical collision: ' + isCollide);
+        console.log('vertical collision: ' + isCollide);
         if(isCollide){
             if(this.vy >= 0){
                 return rect2.y - (this.nextY + this.height);
             } else {
+                //alert('up collision');
                 return rect2.y + rect2.height - this.nextY;
             }
         }
@@ -150,24 +153,26 @@ class hurtBox {
         //console.log('update collision statements test');
         if(rect2.immutable == false){
             //console.log('immutable test');
-            if(this.horiCollision(rect2) > 0){
+            /*if(this.horiCollision(rect2) > 0){
                 controller.vx = -3;
             } else if(this.horiCollision <= 0){
                 controller.vx = 3;
-            } 
+            } if(this.vertCollision > 0){
+                controller.vy = -3;
+            } else if(this.vertCollision < 0){
+                controller.vy = 3;
+            }*/
             return false;
         }
         let hori = this.horiCollision(rect2);
         let vert = this.vertCollision(rect2);
         let diagonal = this.diagCollision(rect2);
-        if(hori != 0 && this.vy == 0){
+        if(hori != 0 && this.vx == 0){
             //this.sprite.x += hori;
             controller.vx = 0;
         }
         if(vert != 0 && this.vx == 0){
             //alert('collide');
-            
-            
             if(vert < 0){
                 controller.vy = 0;
                 this.downCollision = true;
@@ -181,10 +186,14 @@ class hurtBox {
             if(diagonal.v < 0){
                 this.downCollision = true;
                 controller.vy = 0;
+                if(state == 'falling'){
+                    controller.vx = 0;
+                }
             } else {
                 controller.vx = 0;
-                controller.vy = 3;
+                controller.vy = 0;
             }
+            
         }
         return hori != 0 || vert != 0|| diagonal.h != 0 || diagonal.y != 0;
         

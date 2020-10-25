@@ -7,8 +7,9 @@ function setupCharacter(){
 
     sprite.height = 35;
     sprite.width = 47;
+    sprite.anchor.set(0.5, 0);
     sprite.x = 16;
-    sprite.y = 192 - (16*6);
+    sprite.y = 192 - (16);
     console.log(sprite.x);
     console.log(sprite.y);
     sprite.play();
@@ -53,7 +54,7 @@ function characterMovement(){
         sprite.animationSpeed = 0.1;
     }*/
         
-    gameController.move();
+    
 
         
     
@@ -91,7 +92,7 @@ function playCharacter(){
     });
 
     
-    sprite.onFrameChange = function () {
+    app.ticker.add(() => {
         characterMovement();
         state = updateState(gameController.vx, gameController.vy, sprite);
         let currentTextures = newResource.spritesheet.animations[state];
@@ -99,7 +100,12 @@ function playCharacter(){
             sprite.textures = currentTextures;
             sprite.play();
         }
-    }
+        gameController.move();
+    });
+
+    /*sprite.onFrameChange = function () {
+        gameController.move();
+    }*/
     
 
 }

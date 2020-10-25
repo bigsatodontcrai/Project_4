@@ -60,7 +60,7 @@ class controller {
                 this.vx = 0;
             }
         } if (e.key == 'w' && spriteHurtBox.downCollision == false) {
-            this.vy = 1;
+            this.vy = 3;
         } else if (spriteHurtBox.downCollision == true) {
             this.vy = 0;
         }
