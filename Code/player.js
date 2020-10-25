@@ -28,7 +28,7 @@ function test(box){
 
 
 function characterMovement(){
-    console.log(state);
+    //console.log(state);
     if(state != 'jumping'){
         gameController.vy = 3;
     }

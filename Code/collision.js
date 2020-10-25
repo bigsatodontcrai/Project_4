@@ -34,7 +34,7 @@ function getPos(box) {
     boxArray.push([pos + 32, mos - 32]);
     boxArray.push([pos + 32, mos - 16]);
 
-    console.log(boxArray);
+    //console.log(boxArray);
 
     for(let i = 0; i < 12; i++){
         let a = boxArray[i][0];
@@ -42,7 +42,7 @@ function getPos(box) {
         newArray.push([a/16, b/16]);
     }
 
-    console.log(newArray);
+    //console.log(newArray);
 
 
     return boxArray;
