@@ -66,29 +66,29 @@ class hurtBox {
         updatedYD = this.bottomEdge + this.vy;
 
         if (box.topEdge >= this.bottomEdge) {
-            if(box.topEdge <= updatedYD && box.bottomEdge >= updatedYD){
+            if(box.topEdge <= updatedYD){
                 this.downCollision = true;
             }
         } else {
             this.downCollision = false;
         }
 
-        if (box.bottomEdge <= this.topEdge){
+        
             if(box.bottomEdge >= updatedYT && box.topEdge <= updatedYT){
                 this.upCollision = true
             }
-        } else {
+         else {
             this.upCollision = false;
         }
 
-        if (box.leftEdge >= this.rightEdge && forward == 1){
+        if (box.leftEdge >= this.rightEdge && box.bottomEdge >= this.topEdge && forward == 1){
             if(box.leftEdge <= updatedXR && box.rightEdge <= updatedXR){
                 this.leftCollision = true;
             }
         } else {
             this.leftCollision = false;
         }
-        if (box.rightEdge <= this.leftEdge && forward == -1){
+        if (box.rightEdge <= this.leftEdge && box.bottomEdge >= this.topEdge && forward == -1){
             if(box.rightEdge >= updatedXL && box.leftEdge <= updatedXL){
                 this.rightCollision = true;
             }
@@ -110,20 +110,23 @@ class hurtBox {
         if(this.rightCollision && Forward == 1) {
             console.log(box);
             console.log('RIGHT');
+            box.sprite.width = 13;
             controller.vx = 0;
         }
         if(this.leftCollision && Forward == -1){
             console.log(box);
             console.log('LEFT');
+            box.sprite.width = 13;
             controller.vx = 0;
         }
-        
         if(this.upCollision){
             console.log('UP');
-            controller.vy = 3;
+            box.sprite.width = 13;
+            controller.vy = 0;
         } 
         if (this.downCollision) {
             console.log('DOWN');
+            box.sprite.width = 13;
             controller.vy = 0;
         }
         return this.isCollide();
