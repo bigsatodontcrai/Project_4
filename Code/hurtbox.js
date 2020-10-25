@@ -55,33 +55,52 @@ class hurtBox {
     }
 
     updateCollisionStatements(box, forward){
-        let updatedXR = this.rightEdge + this.vx;
-        let updatedXL = this.leftEdge + this.vx;
-        let updatedYT = this.topEdge + this.vy;
-        let updatedYD = this.bottomEdge + this.vy;
 
-        let RC = false;
-        let LC = false;
-        let UC = false;
-        let DC = false;
-        
-        if(forward == 1){
-            RC = updatedXR > box.leftEdge && updatedXR < box.rightEdge;
-        } else if(forward == -1){
-            LC = updatedXL < box.rightEdge && updatedXL > box.leftEdge;
+        let updatedXR;
+        updatedXR = this.rightEdge + this.vx;
+        let updatedXL;
+        updatedXL = this.leftEdge + this.vx;
+        let updatedYT;
+        updatedYT = this.topEdge + this.vy;
+        let updatedYD;
+        updatedYD = this.bottomEdge + this.vy;
+
+        if (box.topEdge >= this.bottomEdge) {
+            if(box.topEdge <= updatedYD){
+                this.downCollision = true;
+            }
+        } else {
+            this.downCollision = false;
         }
-        UC = updatedYT < box.bottomEdge && updatedYT > box.topEdge;
-        DC = updatedYD > box.topEdge && updatedYD < box.bottomEdge;
-        
+            if(box.bottomEdge >= updatedYT && box.topEdge <= updatedYT){
+                this.upCollision = true
+            }
+         else {
+            this.upCollision = false;
+        }
 
-        this.rightCollision = RC;
-        this.leftCollision = LC;
-        this.upCollision = UC;
-        this.downCollision = DC;
+        if (box.leftEdge >= this.rightEdge && box.bottomEdge >= this.topEdge && forward == 1){
+            if(box.leftEdge <= updatedXR && box.rightEdge <= updatedXR){
+                this.leftCollision = true;
+            }
+        } else {
+            this.leftCollision = false;
+        }
+        if (box.rightEdge <= this.leftEdge && box.bottomEdge >= this.topEdge && forward == -1){
+            if(box.rightEdge >= updatedXL && box.leftEdge <= updatedXL){
+                this.rightCollision = true;
+            }
+        } else {
+            this.rightCollision = false;
+        }
     }
 
     isCollide(){
         return this.rightCollision || this.leftCollision || this.upCollision || this.downCollision;
+    }
+
+    isCollideHori(){
+        return this.rightCollision || this.leftCollision;
     }
 
     collide(box, controller, Forward){
@@ -89,21 +108,26 @@ class hurtBox {
         if(this.rightCollision && Forward == 1) {
             console.log(box);
             console.log('RIGHT');
+            box.sprite.height = 13;
             controller.vx = 0;
         }
         if(this.leftCollision && Forward == -1){
             console.log(box);
             console.log('LEFT');
+            box.sprite.height = 13;
             controller.vx = 0;
         }
-        
         if(this.upCollision){
             console.log('UP');
-            controller.vy = 3;
+            box.sprite.height = 13;
+            controller.vy = 0;
         } 
         if (this.downCollision) {
             console.log('DOWN');
-            controller.vy = 0;
+            box.sprite.height = 13;
+            if(state != 'jumping') {
+                controller.vy = 0;
+            }
         }
         return this.isCollide();
     }
