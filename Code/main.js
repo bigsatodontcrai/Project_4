@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let loadScene = PIXI.Loader.shared.add('./Assets/AssetsOrig.json');
     let loadPlayer = PIXI.Loader.shared.add('./Assets/adventurer-Sheet.json');
+    let loadEnemy = PIXI.Loader.shared.add('./Assets/Walk.json');
     
     loadScene.load(() => {
         let newResource = PIXI.Loader.shared.resources['./Assets/AssetsOrig.json'].spritesheet;
@@ -54,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
        // console.log(platformSprites);
         //console.log(constantHurtBox);
         
+    });
+
+    loadEnemy.load(() => {
+
     });
 
     loadPlayer.load(() => {

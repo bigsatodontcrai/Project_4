@@ -59,7 +59,14 @@ function testCollision(worldX, worldY)
     return collisionMap[mapY * map.width + mapX];
 }
 
-let Goomba = new PIXI.Sprite.from("./Assets/GoombaSquare.png");
+let enemyResource;
+enemyResource = PIXI.Loader.shared.resources["./Assets/Walk.json"].spritesheet;
+let Goomba = new PIXI.AnimatedSprite(resource.animations.walk);
+Goomba.height = 32;
+Goomba.width = 40;
+Goomba.anchor.set(0.5, 0);
+//let Goomba = new PIXI.Sprite.from("./Assets/Walk.png");
+Goomba.play();
 app.stage.addChild(Goomba)
 
 let goombaStat = {

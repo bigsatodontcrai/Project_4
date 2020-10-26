@@ -11,7 +11,7 @@
 function updateState(vx, vy, sprite) {
     let thisState = '';
     if (vx != 0 && vy == 0) {
-        sprite.animationSpeed = 0.7;
+        sprite.animationSpeed = 0.1;
         if (vx > 0) {
             if (Forward == -1) {
                 //sprite.x = sprite.x - sprite.width;
@@ -29,10 +29,10 @@ function updateState(vx, vy, sprite) {
         }
         thisState = 'running';
     } else if (vy > 0) {
-        sprite.animationSpeed = 0.05;
+        sprite.animationSpeed = 0.5;
         thisState = 'falling';
     } else if (vy < 0) {
-        sprite.animationSpeed = 0.05;
+        sprite.animationSpeed = 0.5;
         thisState = 'jumping';
     } else {
         sprite.animationSpeed = 0.1;
