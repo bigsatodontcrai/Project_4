@@ -26,6 +26,8 @@ class hurtBox {
         this.verticalCollision = false;
         this.diagonalCollision = false;
         this.upCollision = false;
+        this.rightCollision = false;
+        this.leftCollision = false;
     }
 
     /**
@@ -217,6 +219,11 @@ class hurtBox {
 
         if(this.checkImmutable(rect2, hori, vert, diagonal, controller)){
             return false;
+        }
+
+        if(hori != 0 && this.vy == 0){
+            controller.vx = 0
+            this.vx = 0;
         }
         
         
