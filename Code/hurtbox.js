@@ -95,6 +95,12 @@ class hurtBox {
         
     }
 
+    /**
+     * AABBCollision - checks to see if any two rectables in the same axis collide
+     * @param {hurtBox} rect1 
+     * @param {element} rect2 - PIXI sprite element 
+     * @return boolean
+     */
     AABBCollision(rect1, rect2){
         return (
             rect1.nextX < rect2.x + rect2.width &&
@@ -104,6 +110,11 @@ class hurtBox {
         );
     }
 
+    /**
+     * horiCollision - controlls collision on the horizontal part of the box
+     * @param {element} rect2 - PIXI sprite element 
+     * @return number
+     */
     horiCollision(rect2){
         this.nextX = this.x + this.vx;
         let isCollide = this.AABBCollision(this, rect2);
@@ -125,7 +136,11 @@ class hurtBox {
         return 0;
     }
 
-
+    /**
+     * vertCollision - controlls collision on the vertical part of the box
+     * @param {element} rect2 - PIXI sprite element 
+     * @return number
+     */
     vertCollision(rect2){
         this.nextY = this.y + this.vy;
         let isCollide = this.AABBCollision(this, rect2);
@@ -144,6 +159,11 @@ class hurtBox {
         return 0;
     }
 
+      /**
+     * diagCollision - controlls collision the occurs diagonally
+     * @param {element} rect2 - PIXI sprite element 
+     * @return number - horizontal number and vertical number
+     */
     diagCollision(rect2){
         this.nextX = this.x + this.vx;
         this.nextY = this.y + this.vy;
@@ -185,6 +205,16 @@ class hurtBox {
         }
     }
 
+
+    /**
+     * checkImmutable - checks whether the hurtbox is air or a tile
+     * @param {element} rect2 - PIXI sprite element
+     * @param {number} hori 
+     * @param {number} vert 
+     * @param {number} diagonal 
+     * @param {controller} controller 
+     * @return boolean
+     */
     checkImmutable(rect2, hori, vert, diagonal, controller){
         if(rect2.immutable){
             return false;
@@ -211,6 +241,12 @@ class hurtBox {
         }
     }
 
+    /**
+     * updateCollisionStatements - updates the collison statements
+     * @param {element} rect2 - PIXI sprite element
+     * @param {controller} controller 
+     * @return boolean
+     */
     updateCollisionStatements(rect2, controller){
         //console.log('update collision statements test');
         

@@ -28,6 +28,10 @@ function setupCharacter(){
 
 }
 
+/**
+ * test - tests the collision
+ * @param {elemet} box - PIXI sprite element
+ */
 function test(box){
     let thing = false;
     thing = spriteHurtBox.collide(box, gameController, Forward);
