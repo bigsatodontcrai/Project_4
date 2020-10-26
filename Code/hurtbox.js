@@ -262,9 +262,9 @@ class hurtBox {
         }
 
         if(hori != 0){
-            controller.vx = 0;
+            //controller.vx = 0;
             this.vx = 0;
-            hearts--;
+            //hearts--;
         }
         
         
@@ -277,7 +277,7 @@ class hurtBox {
                 this.upCollision = true;
                 controller.vy = 0;
             }
-            hearts--;
+            //hearts--;
             return true;
         }
         if (this.vx != 0 && this.vy != 0 && diagonal.h != 0 && diagonal.v != 0) {
@@ -305,67 +305,11 @@ class hurtBox {
                 controller.vx = -controller.vx;
                 
             }
-            hearts--;
+            //hearts--;
 
 
         }
         
-
-
-        /*if(rect2.immutable == false){
-            if(hori != 0){
-                gameController.vx = gameController.vx;
-            }
-            if(vert >= 0){
-                gameController.vy = 3;
-                return false;
-            }
-            if(diagonal.h > 0 && diagonal.v > 0){
-                gameController.vx = gameController.vx;
-                //gameController.vy = 3;
-                return false;
-            }
-            if(diagonal.h < 0 && diagonal.v > 0){
-            
-                gameController.vx = gameController.vx;
-                //gameController.vy = gameController.vy;
-                return false;
-            }
-        }
-
-
-        if(hori != 0 && this.vy == 0){
-            //controller.vx = 0;
-        }
-        if(vert != 0 && this.vx == 0){
-            //alert('collide');
-            if(vert < 0){
-                controller.vy = 0;
-                this.downCollision = true;
-                console.log('down collision');
-            } else if (vert > 0){
-                //alert('up collision');
-                //controller.vy = -3;
-            }
-            //alert(controller.vy);
-
-        }
-        if (this.vx != 0 && this.vy != 0 && diagonal.h != 0 && diagonal.v != 0){
-            console.log('diagonal collision');
-            //controller.vx = 0;
-            if(diagonal.v < 0){
-                this.downCollision = true;
-                controller.vy = 0;
-                //controller.vx = 0;
-                
-            } else {
-                //controller.vx = 0;
-                controller.vy = 0;
-                this.downCollision = true;
-            }
-            
-            
-        }*/
         return hori != 0 || vert != 0|| diagonal.h != 0 || diagonal.y != 0;
         
     }
@@ -385,6 +329,19 @@ class hurtBox {
         return this.updateCollisionStatements(box, controller);
     }
 
+    collideWithEnemy(enemyBox){
+        let hori = this.horiCollision(enemyBox);
+        let vert = this.vertCollision(enemyBox);
+        let diagonal = this.diagCollision(enemyBox);
+        //alert('collide with enemy');
+
+        if(this.AABBCollision(this, enemyBox)) {
+            //alert('collide with enemy');
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 }

@@ -94,8 +94,8 @@ app.loader.load((loader, resources) => {
   }
 
   let Goomba = new PIXI.Sprite(GoombaTextures[0]);
+  enemyHurtBox = new hurtBox(Goomba);
   app.stage.addChild(Goomba)
-
 
 let goombaStat = {
 
@@ -110,6 +110,7 @@ let inAir = true;
 
 
 app.ticker.add((time) => {
+  
     Goomba.x = goombaStat.x;
 
     Goomba.y = goombaStat.y + tileSize;
@@ -213,6 +214,6 @@ app.ticker.add((time) => {
       if (bumped == false) {
         goombaStat.vx = -0.1;
       }
-});
+})});
 
 
