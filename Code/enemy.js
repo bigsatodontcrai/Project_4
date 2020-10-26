@@ -6,10 +6,15 @@ let bumped = true;
 
 
 
-
+/**
+ * @file enemy.js manages the enemies the play must avoid
+ */
 
 class Keyboard {
 
+    /**
+     * Keyboard class constructor
+     */
     constructor() {
         this.pressed = {};
     }
@@ -50,6 +55,11 @@ let collisionMap =[ 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   
 
 let map = {height: 15, width: 50};
 
+/**
+ * testCollision - tests the collison 
+ * @param {number} worldX 
+ * @param {number} worldY 
+ */
 function testCollision(worldX, worldY) 
 {
 

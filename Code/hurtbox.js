@@ -86,6 +86,11 @@ class hurtBox {
         
     }
 
+    /**
+     * AABBCollision - 
+     * @param {hurtBox} rect1 
+     * @param {element} rect2 - PIXI sprite element 
+     */
     AABBCollision(rect1, rect2){
         return (
             rect1.x < rect2.x + rect2.width &&
@@ -95,6 +100,10 @@ class hurtBox {
         );
     }
 
+    /**
+     * horiCollision - controlls collision on the horizontal part of the box
+     * @param {element} rect2 - PIXI sprite element 
+     */
     horiCollision(rect2){
         this.nextX = this.x + this.vx;
         let isCollide = this.AABBCollision(this, rect2);
@@ -110,7 +119,10 @@ class hurtBox {
         return 0;
     }
 
-
+    /**
+     * vertCollision - controlls collision on the vertical part of the box
+     * @param {element} rect2 - PIXI sprite element 
+     */
     vertCollision(rect2){
         this.nextY = this.y + this.vy;
         let isCollide = this.AABBCollision(this, rect2);
@@ -126,6 +138,10 @@ class hurtBox {
         return 0;
     }
 
+      /**
+     * diagCollision - controlls collision the occurs diagonally
+     * @param {element} rect2 - PIXI sprite element 
+     */
     diagCollision(rect2){
         this.nextX = this.x + this.vx;
         this.nextY = this.y + this.vy;
@@ -164,7 +180,11 @@ class hurtBox {
     }
 
 
-
+    /**
+     * updateCollisionStatements - updates the collison statements
+     * @param {element} rect2 - PIXI sprite element
+     * @param {controller} controller 
+     */
     updateCollisionStatements(rect2, controller){
         //console.log('update collision statements test');
         if(rect2.immutable == false){
