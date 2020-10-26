@@ -173,6 +173,8 @@ function playCharacter(){
                 alert('You barely deserve the congratulations. You get a D!');
             } else if (hearts == 1 && reset > 3){
                 alert('Sike. You get an F! 1 heart left and ' + reset + 'resets?! That is more than 3!');
+            } else {
+                alert('You get an F idk');
             }
             sprite.x = 16;
             sprite.y = 192 - (16 * 8);
