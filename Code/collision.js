@@ -34,7 +34,7 @@ function getPos(box) {
     let boxArray = [[]];
     let newArray = [];
     let xoffset = 0;
-    let pos = thePosition(box.leftEdge, 16) + xoffset;
+    let pos = thePosition(box.leftEdge, 16);
 
     let mos = thePosition(box.bottomEdge, 16) - 16;
 

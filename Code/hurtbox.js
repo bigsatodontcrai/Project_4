@@ -60,7 +60,7 @@ class hurtBox {
 
         this.rightEdge = this.sprite.x + 0.5 * this.width;
         this.leftEdge = this.sprite.x - 0.5 * this.width;
-        this.topEdge = this.sprite.y + (7/37) * this.sprite.height;
+        this.topEdge = this.sprite.y + (6/37) * this.sprite.height;
         this.bottomEdge = this.sprite.y + (36/37) * this.sprite.height;
 
 
@@ -118,7 +118,11 @@ class hurtBox {
     horiCollision(rect2){
         this.nextX = this.x + this.vx;
         let isCollide = this.AABBCollision(this, rect2);
-        console.log("horizontal collision: " + isCollide);
+        if(rect2.immutable == true)
+        {
+            console.log("horizontal collision: " + isCollide);
+            console.log(rect2);
+        }
         
         if(isCollide){
             this.horizontalCollision = true;
@@ -257,20 +261,23 @@ class hurtBox {
             return false;
         }
 
-        if(hori != 0 && this.vy == 0){
-            controller.vx = 0
+        if(hori != 0){
+            controller.vx = 0;
             this.vx = 0;
+            hearts--;
         }
         
         
         if(vert != 0 && this.vx == 0){
             if(vert < 0) {
                 this.downCollision = true;
+                //alert('downCollision');
                 controller.vy = 0;
             } else if (vert > 0){
                 this.upCollision = true;
                 controller.vy = 0;
             }
+            hearts--;
             return true;
         }
         if (this.vx != 0 && this.vy != 0 && diagonal.h != 0 && diagonal.v != 0) {
@@ -278,14 +285,27 @@ class hurtBox {
             //controller.vx = 0;
             if (diagonal.v < 0) {
                 this.downCollision = true;
-                controller.vy = 0;
+                controller.vy = -controller.vy;
+                controller.vx = -controller.vx;
                 //controller.vx = 0;
 
             } else {
-                controller.vx = 0;
-                controller.vy = 0;
+                //controller.vx = 0;
+                controller.vy = -controller.vy;
+                controller.vx = -controller.vx;
                 this.downCollision = true;
             }
+            if (diagonal.v > 0 && diagonal.h < 0){
+                this.rightCollision = true;
+                controller.vy = -controller.vy;
+                controller.vx = -controller.vx;
+            } else if (diagonal.v < 0 && diagonal.h > 0){
+                this.rightCollision = false;
+                controller.vy = -controller.vy;
+                controller.vx = -controller.vx;
+                
+            }
+            hearts--;
 
 
         }

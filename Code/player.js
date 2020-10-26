@@ -44,8 +44,9 @@ function test(box){
  */
 function characterMovement(){
     //console.log(state);
-    if(state != 'jumping'){
-       gameController.vy = 3;
+    console.log(spriteHurtBox);
+    if (state != 'jumping') {
+        gameController.vy = 3;
     }
     spriteHurtBox.updateHurtBox(gameController);
     try {
@@ -57,6 +58,7 @@ function characterMovement(){
 
     
     arrayOfSprites.forEach(box => test(box));
+    
       
 }
 
@@ -105,6 +107,24 @@ function playCharacter(){
             sprite.play();
         }
         gameController.move();
+
+
+        if(sprite.x + spriteHurtBox.width/2 == 800){
+            alert('congratulations! you beat the demo');
+        }
+
+        if(spriteHurtBox.bottomEdge >= 240 || hearts == 0){
+            alert('you died.');
+            sprite.x = 16;
+            sprite.y = 192 - (16*8);
+        }
+        
+        if(3 > hearts > 0){
+            container.removeChild(heartArray[hearts - 1]);
+        }
+        
+
+        
     });
 
     /*sprite.onFrameChange = function () {
