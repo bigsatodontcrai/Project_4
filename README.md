@@ -15,7 +15,7 @@ The goal of the game is to avoid emenies and grab as many coins as possible befo
     * D to go right
 
 ## Documentation ![Adventurer5](Documentation/images/adventurer5.png)
-All documentation can be found in the [Documentation Folder]. 
+All documentation can be found in the [Documentation Folder]. If you are specifically looking for the HTML file with the project documentation, that is the index.html file found [here](Documentation/out)
 
 [Atom]: https://atom.io/packages/atom-live-server
 [VS Code]: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
