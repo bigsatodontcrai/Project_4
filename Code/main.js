@@ -51,6 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 constantHurtBox[i].immutable = false;
             }
         }
+        for(let i = 0; i < 3; i++){
+            heartArray[i] = new PIXI.Sprite.from('./Assets/heart.png');
+            heartArray[i].height = 8;
+            heartArray[i].width = 8;
+            heartArray[i].x = 16 * i + 3;
+            heartArray[i].y = 4;
+            container.addChild(heartArray[i]);
+        }
 
        // console.log(platformSprites);
         //console.log(constantHurtBox);
