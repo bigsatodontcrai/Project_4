@@ -70,15 +70,32 @@ function testCollision(worldX, worldY)
     return collisionMap[mapY * map.width + mapX];
 }
 
-let enemyResource;
-enemyResource = PIXI.Loader.shared.resources["./Assets/Walk.json"].spritesheet;
-let Goomba = new PIXI.AnimatedSprite(resource.animations.walk);
-Goomba.height = 32;
-Goomba.width = 40;
-Goomba.anchor.set(0.5, 0);
-//let Goomba = new PIXI.Sprite.from("./Assets/Walk.png");
-Goomba.play();
-app.stage.addChild(Goomba)
+
+app.loader.add('goombaba', './Assets/Walky.png');
+app.loader.add('goombabaFlip', './Assets/WalkyBack.png');
+
+app.loader.load((loader, resources) => {
+  let GoombaTextures = [];
+  for (let i = 0; i< 4; i++)
+  {
+    GoombaTextures[i] = new PIXI.Texture(
+      resources.goombaba.texture,
+      new PIXI.Rectangle(i * tileSize, 0, tileSize, tileSize * 2)
+    );
+  }
+  
+  let GoombaTexturesFlip = [];
+  for (let i = 0; i< 4; i++)
+  {
+    GoombaTexturesFlip[i] = new PIXI.Texture(
+      resources.goombabaFlip.texture,
+      new PIXI.Rectangle(i * tileSize, 0, tileSize, tileSize * 2)
+    );
+  }
+
+  let Goomba = new PIXI.Sprite(GoombaTextures[0]);
+  app.stage.addChild(Goomba)
+
 
 let goombaStat = {
 
@@ -177,6 +194,17 @@ app.ticker.add((time) => {
         }
       }
 
+      let goombaFrame = 0;
+
+      if (goombaStat.vx > 0)
+      {
+        Goomba.texture = GoombaTextures[(Math.floor(Date.now() / 100 ) % 3) + 1];
+      }
+      else if (goombaStat.vx < 0)
+      {
+        Goomba.texture = GoombaTexturesFlip[(Math.floor(Date.now() / 100 ) % 3) + 1];
+      }
+
       //console.log(Goomba.x)
 
       if (bumped == true) {
@@ -186,4 +214,5 @@ app.ticker.add((time) => {
         goombaStat.vx = -0.1;
       }
 });
+
 
