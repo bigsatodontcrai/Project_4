@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        console.log(platformSprites);
-        console.log(constantHurtBox);
+       // console.log(platformSprites);
+        //console.log(constantHurtBox);
         
     });
 

@@ -35,9 +35,9 @@ function getPos(box) {
     let newArray = [];
     let xoffset = 0;
     let pos = thePosition(box.leftEdge, 16) + xoffset;
+
     let mos = thePosition(box.bottomEdge, 16) - 16;
-    console.log(pos);
-    console.log(mos);
+
 
     boxArray[0] = [pos - 16, mos - 16*3];//top left
     boxArray.push([pos, mos - 16*3]);//top right
@@ -55,7 +55,7 @@ function getPos(box) {
     boxArray.push([pos + 32, mos - 32]);
     boxArray.push([pos + 32, mos - 16]);
 
-    console.log(boxArray);
+    //console.log(boxArray);
 
     for(let i = 0; i < 12; i++){
         let a = boxArray[i][0];
@@ -63,7 +63,7 @@ function getPos(box) {
         newArray.push([a/16, b/16]);
     }
 
-    console.log(newArray);
+    //console.log(newArray);
 
 
     return boxArray;

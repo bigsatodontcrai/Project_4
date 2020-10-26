@@ -9,16 +9,15 @@
 function setupCharacter(){
     resource = PIXI.Loader.shared.resources["./Assets/adventurer-Sheet.json"].spritesheet;
     sprite = new PIXI.AnimatedSprite(resource.animations.idle);
-    console.log('its lit');
+ //   console.log('its lit');
 
     sprite = sprite;
 
     sprite.height = 35;
     sprite.width = 47;
+    sprite.anchor.set(0.5, 0);
     sprite.x = 16;
-    sprite.y = 192 - (16*6);
-    console.log(sprite.x);
-    console.log(sprite.y);
+    sprite.y = 192 - (16);
     sprite.play();
     sprite.animationSpeed = 0.1;
 
@@ -40,34 +39,21 @@ function test(box){
  * @return void
  */
 function characterMovement(){
-    console.log(state);
+    //console.log(state);
     if(state != 'jumping'){
-        gameController.vy = 3;
+        gameController.vy = fallspeed;
     }
     spriteHurtBox.updateHurtBox(gameController);
     try {
         arrayOfSprites = newSpriteArray(spriteHurtBox);
+
     } catch(error) {
         console.log('no');
     }
-    console.log(spriteHurtBox);
-    console.log(arrayOfSprites);
-    arrayOfSprites.forEach(box => test(box));
-    /*
-    try {
-        arrayOfSprites.forEach(box => console.log(box));
-        arrayOfSprites.forEach(box => test(box));
-    } catch (error) {
-        console.log('you died');
-        sprite.x = -16;
-        sprite.y = 140;
-        sprite.animationSpeed = 0.1;
-    }*/
-        
-    gameController.move();
 
-        
     
+    arrayOfSprites.forEach(box => test(box));
+      
 }
 
 /**
@@ -106,7 +92,7 @@ function playCharacter(){
     });
 
     
-    sprite.onFrameChange = function () {
+    app.ticker.add(() => {
         characterMovement();
         state = updateState(gameController.vx, gameController.vy, sprite);
         let currentTextures = newResource.spritesheet.animations[state];
@@ -114,7 +100,12 @@ function playCharacter(){
             sprite.textures = currentTextures;
             sprite.play();
         }
-    }
+        gameController.move();
+    });
+
+    /*sprite.onFrameChange = function () {
+        gameController.move();
+    }*/
     
 
 }
