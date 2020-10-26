@@ -17,7 +17,7 @@ function setupCharacter(){
     sprite.width = 47;
     sprite.anchor.set(0.5, 0);
     sprite.x = 16;
-    sprite.y = 192 - (16);
+    sprite.y = 192 - (16*8);
     sprite.play();
     sprite.animationSpeed = 0.1;
 
@@ -45,7 +45,7 @@ function test(box){
 function characterMovement(){
     //console.log(state);
     if(state != 'jumping'){
-        gameController.vy = fallspeed;
+       gameController.vy = 3;
     }
     spriteHurtBox.updateHurtBox(gameController);
     try {
