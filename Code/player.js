@@ -24,6 +24,7 @@ function setupCharacter(){
     spriteHurtBox = new hurtBox(sprite);
     spriteHurtBox.calculateCharEdges();
     gameController = new controller(sprite);
+    hearts = 3;
     
 
 }
@@ -97,9 +98,54 @@ function playCharacter(){
 
     });
 
+   
+
     
     app.ticker.add(() => {
+        if(damageboost > 0) {
+            damageboost -= app.deltaTime;
+        }
         characterMovement();
+
+        console.log('hurtbox of the enemy:');
+        enemyHurtBox.calculateEdges();
+        console.log(enemyHurtBox);
+
+        console.log("collision with enemy: " + spriteHurtBox.collideWithEnemy(enemyHurtBox));
+
+        if(damageboost <= 0 && spriteHurtBox.AABBCollision(spriteHurtBox, enemyHurtBox)){
+            if(hearts > 1)
+            {
+                container.removeChild(heartArray[hearts - 1]);
+                hearts--;
+                alert('that enemy has taken your health.');
+                gameController.vx = 0;
+                gameController.vy = 0;
+                sprite.x += (10 * spriteHurtBox.horiCollision(enemyHurtBox));
+                //damageboost = app.deltaTime;
+                //sprite.x = 16;
+                //sprite.y = 192 - (16 * 8);
+            } else if(hearts == 1){
+                alert('you died.');
+                gameController.vx = 0;
+                gameController.vy = 0;
+                sprite.x = 16;
+                sprite.y = 192 - (16 * 8);
+                hearts = 3;
+                for (let i = 0; i < 3; i++) {
+                    heartArray[i] = new PIXI.Sprite.from('./Assets/heart.png');
+                    heartArray[i].height = 8;
+                    heartArray[i].width = 8;
+                    heartArray[i].x = 16 * i + 3;
+                    heartArray[i].y = 4;
+                    container.addChild(heartArray[i]);
+                }
+                reset++;
+            }
+        }
+
+
+
         state = updateState(gameController.vx, gameController.vy, sprite);
         let currentTextures = newResource.spritesheet.animations[state];
         if (sprite.textures != currentTextures) {
@@ -108,20 +154,51 @@ function playCharacter(){
         }
         gameController.move();
 
+        
 
-        if(sprite.x + spriteHurtBox.width/2 == 800){
+
+        if(sprite.x + spriteHurtBox.width/2 >= 800){
             alert('congratulations! you beat the demo');
+            if (hearts == 3 && reset == 0) {
+                alert('All hearts and 0 resets! You got an A+!')
+            } else if (hearts == 3 && 2 > reset > 0 || (hearts == 2 && reset < 2)) {
+                alert('All hearts and ' + reset + ' resets! You get a B')
+            } else if (hearts == 2 && reset == 3 || reset == 4) {
+                alert('2 hearts and ' + reset + ' resets! You get a C');
+            } else if (hearts == 1 && reset == 0) {
+                alert('You barely got it in one try. You can have a B+');
+            } else if (hearts == 1 && 2 > reset > 0){
+                alert('hmmm a few resets and a missing heart. You get a C');
+            } else if (hearts == 1 && reset == 3){
+                alert('You barely deserve the congratulations. You get a D!');
+            } else if (hearts == 1 && reset > 3){
+                alert('Sike. You get an F! 1 heart left and ' + reset + 'resets?! That is more than 3!');
+            }
+            sprite.x = 16;
+            sprite.y = 192 - (16 * 8);
+            
         }
 
-        if(spriteHurtBox.bottomEdge >= 240 || hearts == 0){
+        if(spriteHurtBox.bottomEdge >= 240){
             alert('you died.');
             sprite.x = 16;
             sprite.y = 192 - (16*8);
+            reset++;
+            if(hearts == 0){
+                for (let i = 0; i < 3; i++) {
+                    heartArray[i] = new PIXI.Sprite.from('./Assets/heart.png');
+                    heartArray[i].height = 8;
+                    heartArray[i].width = 8;
+                    heartArray[i].x = 16 * i + 3;
+                    heartArray[i].y = 4;
+                    container.addChild(heartArray[i]);
+                }
+            }
         }
         
-        if(3 > hearts > 0){
+        /*if(3 > hearts > 0){
             container.removeChild(heartArray[hearts - 1]);
-        }
+        }*/
         
 
         
