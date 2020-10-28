@@ -17,14 +17,18 @@ function setupCharacter(){
     sprite.width = 47;
     sprite.anchor.set(0.5, 0);
     sprite.x = 16;
-    sprite.y = 192 - (16*8);
+    sprite.y = 192 - (16*4);
     sprite.play();
     sprite.animationSpeed = 0.1;
 
     spriteHurtBox = new hurtBox(sprite);
     spriteHurtBox.calculateCharEdges();
     gameController = new controller(sprite);
+    //gameController.vy = 2;
     hearts = 3;
+
+    bottom = spriteHurtBox.bottomEdge;
+    maxHeight = bottom - 16*5;
     
 
 }
@@ -45,11 +49,43 @@ function test(box){
  */
 function characterMovement(){
     //console.log(state);
+    //spriteHurtBox.calculateCharEdges();
     console.log(spriteHurtBox);
-    if (state != 'jumping') {
-        gameController.vy = 3;
+    console.log("HELLO " + spriteHurtBox.downCollision);
+    if(state == 'jumping' && spriteHurtBox.downCollision == true){
+        spriteHurtBox.downCollision = false;
     }
+    if(spriteHurtBox.downCollision && state != 'jumping'){
+        bottom = spriteHurtBox.bottomEdge;
+        maxHeight = bottom - 16*5;
+    }
+    console.log('CATCH ME OUTSIDE');
+    console.log(bottom);
+    console.log(maxHeight);
+
+    
+    //alert(bottom);
+    //spriteHurtBox.updateHurtBox(gameController);
+    /*if (state != 'jumping') {
+        gameController.vy = 2;
+        gravity = true;
+        //alert(spriteHurtBox.bottomEdge);
+    }*/ if (gameController.vy <= 0 && state != 'jumping'){
+        gravity = false;
+    } else if (state != 'jumping'){
+        //gameController.vy = 2;
+        gravity = true;
+    } 
     spriteHurtBox.updateHurtBox(gameController);
+    if (state == 'jumping') {
+        if (bottom > spriteHurtBox.bottomEdge - 2 && spriteHurtBox.bottomEdge - 2 < maxHeight) {
+            gameController.vy = 2;
+        }
+        if(spriteHurtBox.topEdge <= 56){
+            
+            gameController.vy = 2;
+        }
+    }
     try {
         arrayOfSprites = newSpriteArray(spriteHurtBox);
 
@@ -57,9 +93,9 @@ function characterMovement(){
         console.log('no');
     }
 
-    
+    //spriteHurtBox.updateHurtBox(gameController);
     arrayOfSprites.forEach(box => test(box));
-    
+    testing = 0;
       
 }
 
@@ -107,9 +143,9 @@ function playCharacter(){
         }
         characterMovement();
 
-        console.log('hurtbox of the enemy:');
+        //console.log('hurtbox of the enemy:');
         enemyHurtBox.calculateEdges();
-        console.log(enemyHurtBox);
+        //console.log(enemyHurtBox);
 
         console.log("collision with enemy: " + spriteHurtBox.collideWithEnemy(enemyHurtBox));
 
@@ -181,7 +217,7 @@ function playCharacter(){
             
         }
 
-        if(spriteHurtBox.bottomEdge >= 240){
+        if(spriteHurtBox.bottomEdge >= 16*15){
             alert('you died.');
             sprite.x = 16;
             sprite.y = 192 - (16*8);

@@ -102,7 +102,7 @@ function newSpriteArray(box) {
     for (let i = 0; i < 12; i++) {
         let index = ind[i];
         spriteArray[i] = constantHurtBox[index];
-        
+        platformSprites[index].width = 13;
     }
 
     return spriteArray;

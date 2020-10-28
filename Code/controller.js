@@ -26,14 +26,14 @@ class controller {
         this.curr.push(e.key);
         this.size++;
         if(e.key == 'a'){
-            this.vx = -3;
+            this.vx = -1;
         } if (e.key == 'd'){
-            this.vx = 3;
+            this.vx = 1;
         } if (e.key == 'w'){
             if(spriteHurtBox.downCollision){
-                this.vy = -3;
+                this.vy = -1;
             } else {
-                this.vy = 3;
+                this.vy = 1;
             }
         } 
         return true;
@@ -92,9 +92,9 @@ class controller {
                 this.vx = 0;
             }
         } if (e.key == 'w' && spriteHurtBox.downCollision == false) {
-            this.vy = 3;
+            this.vy = 2;
         } /*else if (spriteHurtBox.downCollision == true) {
-            this.vy = -3;
+            this.vy = -2;
         }*/
     }
 

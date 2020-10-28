@@ -8,8 +8,8 @@ class hurtBox {
      */
     constructor(sprite) {
         this.sprite = sprite;
-        this.height = this.sprite.height;
-        this.width = this.sprite.width;
+        this.height = sprite.height;
+        this.width = sprite.width;
         this.x = sprite.x;
         this.y = sprite.y;
         this.nextX = sprite.x;
@@ -55,14 +55,19 @@ class hurtBox {
         //this.x = this.sprite.x + 0.26 * this.sprite.width;
         //this.y = this.sprite.y + 0.16 * this.sprite.height;
 
-        this.width = 0.34 * this.sprite.width;
-        this.height = 0.7837 * this.sprite.height;
+        //this.width = 0.34 * this.sprite.width;
+        this.width = 16;
+        //this.height = 0.78 * this.sprite.height;
+        this.height = 28;
 
         this.rightEdge = this.sprite.x + 0.5 * this.width;
         this.leftEdge = this.sprite.x - 0.5 * this.width;
-        this.topEdge = this.sprite.y + (6/37) * this.sprite.height;
+        this.topEdge = this.sprite.y + (7/37) * this.sprite.height;
         this.bottomEdge = this.sprite.y + (36/37) * this.sprite.height;
-
+        this.topEdge = Math.floor(this.topEdge);
+        this.bottomEdge = Math.floor(this.bottomEdge);
+        this.rightEdge = Math.floor(this.rightEdge);
+        this.leftEdge = Math.floor(this.leftEdge);
 
         this.x = this.leftEdge;
         this.y = this.topEdge;
@@ -91,7 +96,7 @@ class hurtBox {
     updateHurtBox(controller){
         this.calculateCharEdges();
         this.updateVelocity(controller);
-        this.downCollision = false;
+       // this.downCollision = false;
         
     }
 
@@ -118,10 +123,9 @@ class hurtBox {
     horiCollision(rect2){
         this.nextX = this.x + this.vx;
         let isCollide = this.AABBCollision(this, rect2);
-        if(rect2.immutable == true)
+        if(rect2.immutable == false)
         {
-            console.log("horizontal collision: " + isCollide);
-            console.log(rect2);
+            return 0;
         }
         
         if(isCollide){
@@ -144,10 +148,14 @@ class hurtBox {
     vertCollision(rect2){
         this.nextY = this.y + this.vy;
         let isCollide = this.AABBCollision(this, rect2);
+
+        if(rect2.immutable == false && this.vy < 0){
+            return 0;
+        }
         
         if(isCollide){
             this.verticalCollision = true;
-            if(this.vy >= 0){
+            if(this.vy > 0){
                 return rect2.y - (this.nextY + this.height);
             } else {
                 
@@ -168,10 +176,10 @@ class hurtBox {
         this.nextX = this.x + this.vx;
         this.nextY = this.y + this.vy;
 
-        const NE = this.vx >= 0 && this.vy <= 0;
-        const NW = this.vx <= 0 && this.vy <= 0;
-        const SE = this.vx >= 0 && this.vy >= 0;
-        const SW = this.vx <= 0 && this.vy >= 0;
+        const NE = this.vx > 0 && this.vy < 0;
+        const NW = this.vx < 0 && this.vy < 0;
+        const SE = this.vx > 0 && this.vy > 0;
+        const SW = this.vx < 0 && this.vy > 0;
 
         if(this.AABBCollision(this, rect2)){
             this.diagonalCollision = true;
@@ -219,24 +227,102 @@ class hurtBox {
         if(rect2.immutable){
             return false;
         } else {
-            if(vert < 0){
+            let temp = this.vy;
+            this.vy = 1;
+            
+            if(this.vertCollision(rect2) < 0 && this.downCollision == false && state != 'jumping'){
+                console.log('LIGMA');
+                console.log(rect2);
+                controller.vy = 1;
+                //alert('yung');
+                this.vy = temp;
+                //controller.vy = 0;
+                this.downCollision = false;
+                //alert('no');
+            }
+
+            /*if(testing == 6 || testing == 7){
+                this.downCollision = false;
+            }*/
+            
+            else {
+                //this.downCollision = true;
+               // alert('yes');
+                this.vy = temp;
+            }
+
+
+            if(vert > 0){
+                //alert('yuh');
                 //this.downCollision = false;
                 //controller.vy = 3;
             }
-            if(vert > 0){
+            if(vert < 0){
                 //controller.vy = controller.vy;
             }
             if(hori < 0){
                 //controller.vx = controller.vx;
             }
             if(diagonal.h > 0 && diagonal.v > 0){
-                controller.vx = controller.vx;
+                //controller.vx = controller.vx;
                 //controller.vy = 3;
             }
             if(diagonal.h < 0 && diagonal.v > 0){
-                controller.vx = controller.vx;
+                //controller.vx = controller.vx;
                 //controller.vy = 3;
             }
+            return true;
+        }
+    }
+
+    checkImmutableCollision(hori, vert, diagonal, controller){
+        if (diagonal.v != 0 || diagonal.h != 0) {
+            //alert('yn');
+            //console.log(rect2);
+        }
+
+        if (vert != 0 && this.vx == 0) {
+            if (vert < 0) {
+                this.downCollision = true;
+                //alert('downCollision');
+                controller.vy = 0;
+                this.vy = 0;
+            } else if (vert > 0) {
+                this.upCollision = true;
+                this.vy = 1;
+                controller.vy = 1;
+                this.sprite.y += 1;
+            }
+            return true;
+        }
+
+        if (hori != 0 && controller.vy == 0) {  
+            controller.vx = 0;
+            return true;
+        }
+
+        if (this.vx != 0 && this.vy != 0 && diagonal.h != 0 && diagonal.v != 0) {
+            //alert('diagonal collision');
+            //controller.vx = 0;
+            
+            /*if (controller.vx > 0) {
+                this.sprite.x += 1;
+            } else if (controller.vx > 0) {
+                this.sprite.x -= 1;
+            }*/
+            
+            
+
+           /* if(diagonal.v < 0){
+                controller.vx = controller.vx;
+            } else {
+                controller.vx = -controller.vx;
+            }*/
+            controller.vx = -controller.vx;
+            controller.vy = 0;
+            this.sprite.y -= 1;
+
+            
             return true;
         }
     }
@@ -249,6 +335,10 @@ class hurtBox {
      */
     updateCollisionStatements(rect2, controller){
         //console.log('update collision statements test');
+        testing += 1;
+        if (this.downCollision && gravity == true) {
+            this.vy = 0;
+        }
         
         let hori = this.horiCollision(rect2);
         let vert = this.vertCollision(rect2);
@@ -258,57 +348,15 @@ class hurtBox {
         console.log(diagonal);
 
         if(this.checkImmutable(rect2, hori, vert, diagonal, controller)){
+            console.log('not immutable ' + testing);
             return false;
+        } else {
+            console.log('immutable ' + testing);
+            this.checkImmutableCollision(hori, vert, diagonal, controller);
+
         }
 
-        if(hori != 0){
-            //controller.vx = 0;
-            this.vx = 0;
-            //hearts--;
-        }
         
-        
-        if(vert != 0 && this.vx == 0){
-            if(vert < 0) {
-                this.downCollision = true;
-                //alert('downCollision');
-                controller.vy = 0;
-            } else if (vert > 0){
-                this.upCollision = true;
-                controller.vy = 0;
-            }
-            //hearts--;
-            return true;
-        }
-        if (this.vx != 0 && this.vy != 0 && diagonal.h != 0 && diagonal.v != 0) {
-            console.log('diagonal collision');
-            //controller.vx = 0;
-            if (diagonal.v < 0) {
-                this.downCollision = true;
-                controller.vy = -controller.vy;
-                controller.vx = -controller.vx;
-                //controller.vx = 0;
-
-            } else {
-                //controller.vx = 0;
-                controller.vy = -controller.vy;
-                controller.vx = -controller.vx;
-                this.downCollision = true;
-            }
-            if (diagonal.v > 0 && diagonal.h < 0){
-                this.rightCollision = true;
-                controller.vy = -controller.vy;
-                controller.vx = -controller.vx;
-            } else if (diagonal.v < 0 && diagonal.h > 0){
-                this.rightCollision = false;
-                controller.vy = -controller.vy;
-                controller.vx = -controller.vx;
-                
-            }
-            //hearts--;
-
-
-        }
         
         return hori != 0 || vert != 0|| diagonal.h != 0 || diagonal.y != 0;
         

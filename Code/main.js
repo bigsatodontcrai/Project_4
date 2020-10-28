@@ -39,16 +39,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 constantHurtBox[i].calculateEdges();
                 container.addChild(platformSprites[i]);
             } else {
-                platformSprites[i] = {
+                let loc = 'Assets' + 84 + '.png';
+                platformSprites[i] = new PIXI.Sprite(newResource.textures[loc]);
+                platformSprites[i].x = (i % 50) * 16;
+                let yloc = Math.floor(i / 50);
+                platformSprites[i].y = (yloc + 1) * 16;
+                platformSprites[i].width = 16;
+                platformSprites[i].height = 16;
+                platformSprites[i].interactive = true;
+
+                /*platformSprites[i] = {
                     x: (i % 50) * 16,
                     y: (Math.floor(i/50) + 1) * 16,
                     height: 16,
                     width: 16,
-                };
+                };*/
                 constantHurtBox[i] = new hurtBox(platformSprites[i]);
                 constantHurtBox[i].height = platformSprites[i].height;
                 constantHurtBox[i].width = platformSprites[i].width;
                 constantHurtBox[i].immutable = false;
+                constantHurtBox[i].calculateEdges();
+                container.addChild(platformSprites[i]);
             }
         }
         for(let i = 0; i < 3; i++){
@@ -60,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             container.addChild(heartArray[i]);
         }
 
-       // console.log(platformSprites);
-        //console.log(constantHurtBox);
+        console.log(platformSprites);
+        console.log(constantHurtBox);
         
     });
 
