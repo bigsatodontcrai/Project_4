@@ -291,7 +291,7 @@ class hurtBox {
                 this.upCollision = true;
                 this.vy = 1;
                 controller.vy = 1;
-                this.sprite.y += 1;
+                this.sprite.y += 2;
             }
             return true;
         }
@@ -313,14 +313,22 @@ class hurtBox {
             
             
 
-           /* if(diagonal.v < 0){
+            /*if(diagonal.v < 0){
                 controller.vx = controller.vx;
             } else {
                 controller.vx = -controller.vx;
             }*/
-            controller.vx = -controller.vx;
+            /*if(diagonal.v > 0){
+                controller.vy = -controller.vy;
+            } else {
+                controller.vy = 0;
+            }*/
             controller.vy = 0;
+            controller.vx = -controller.vx;
+            this.sprite.x += 1;
+            diagonal.h = 0;
             this.sprite.y -= 1;
+            diagonal.v = 0;
 
             
             return true;
