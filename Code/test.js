@@ -69,11 +69,12 @@ function testHealth ()
 
 function testWin()
 {
-    sprite.x = 800;
-    if (sprite.x == 800)
+    sprite.x = 810;
+    if (sprite.x == 810)
     {
         test2Invalid++;
         console.log("Game winning works!");
+        
     }
     else
     {
