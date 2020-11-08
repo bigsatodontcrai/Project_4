@@ -21,13 +21,33 @@ const app = new PIXI.Application(
     }
 );
 
+
+function healthCheck () 
+{
+    if (hearts == 3)
+    {
+        alert('You have 3 hearts left');
+    }
+    else if (hearts == 2)
+    {
+        alert('you have 2 heart left');
+    }
+    else if (hearts == 1)
+    {
+        alert('you have 1 heart left');
+    }
+}
+
 const BG = PIXI.Sprite.from('./Assets/Background_1.png');
 BG.scale.x = 2;
 
+
+let test2Invalid = 0;
+let coinDetect = 0;
 let bottom;
 let maxHeight;
 let gravity = false;
-let hearts = 3;
+let hearts = 4;
 let heartArray = new Array(3);
 let enemyHurtBox;
 let reset = 0;
@@ -81,6 +101,9 @@ let platformArray = [ 0, 0,   0,   0,   0,   0,   0,   0, 0,   0,   0,   0,   0,
 let text;
 let spriteHurtBox;
 let gameController;
+let isOnGround;
+let onGroundCheck = 1;
+
 
 function sound(src) {
     this.sound = document.createElement("audio");

@@ -101,8 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         container.addChild(text);
 
-        console.log(platformSprites);
-        console.log(constantHurtBox);
+        //console.log(platformSprites);
+        //console.log(constantHurtBox);
         
     });
 
