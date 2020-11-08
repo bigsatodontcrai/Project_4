@@ -11,7 +11,8 @@
 function updateState(vx, vy, sprite) {
     let thisState = '';
     if (vx != 0 && vy == 0) {
-        sprite.animationSpeed = 0.1;
+        //alert('himbo');
+        sprite.animationSpeed = 0.3;
         if (vx > 0) {
             if (Forward == -1) {
                 //sprite.x = sprite.x - sprite.width;
@@ -42,3 +43,10 @@ function updateState(vx, vy, sprite) {
     return thisState;
 
 }//will move this to statemachine
+
+function attackState(e){
+    if(e.keyCode == 32){
+        return 'attack';
+    }
+}
+//32 is the keyCode for space

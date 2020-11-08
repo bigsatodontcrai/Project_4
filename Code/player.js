@@ -9,14 +9,13 @@
 function setupCharacter(){
     resource = PIXI.Loader.shared.resources["./Assets/adventurer-Sheet.json"].spritesheet;
     sprite = new PIXI.AnimatedSprite(resource.animations.idle);
- //   console.log('its lit');
 
     sprite = sprite;
 
     sprite.height = 35;
     sprite.width = 47;
     sprite.anchor.set(0.5, 0);
-    sprite.x = 16;
+    sprite.x = 32;
     sprite.y = 192 - (16*4);
     sprite.play();
     sprite.animationSpeed = 0.1;
@@ -24,7 +23,6 @@ function setupCharacter(){
     spriteHurtBox = new hurtBox(sprite);
     spriteHurtBox.calculateCharEdges();
     gameController = new controller(sprite);
-    //gameController.vy = 2;
     hearts = 3;
 
     bottom = spriteHurtBox.bottomEdge;
@@ -38,8 +36,7 @@ function setupCharacter(){
  * @param {elemet} box - PIXI sprite element
  */
 function test(box){
-    let thing = false;
-    thing = spriteHurtBox.collide(box, gameController, Forward);
+    return box.collide(spriteHurtBox, gameController, Forward);
     
 }
 
@@ -48,10 +45,7 @@ function test(box){
  * @return void
  */
 function characterMovement(){
-    //console.log(state);
-    //spriteHurtBox.calculateCharEdges();
-    console.log(spriteHurtBox);
-    console.log("HELLO " + spriteHurtBox.downCollision);
+    
     if(state == 'jumping' && spriteHurtBox.downCollision == true){
         spriteHurtBox.downCollision = false;
     }
@@ -59,31 +53,19 @@ function characterMovement(){
         bottom = spriteHurtBox.bottomEdge;
         maxHeight = bottom - 16*5;
     }
-    console.log('CATCH ME OUTSIDE');
-    console.log(bottom);
-    console.log(maxHeight);
-
-    
-    //alert(bottom);
-    //spriteHurtBox.updateHurtBox(gameController);
-    /*if (state != 'jumping') {
-        gameController.vy = 2;
-        gravity = true;
-        //alert(spriteHurtBox.bottomEdge);
-    }*/ if (gameController.vy <= 0 && state != 'jumping'){
+   if (gameController.vy <= 0 && state != 'jumping'){
         gravity = false;
     } else if (state != 'jumping'){
-        //gameController.vy = 2;
         gravity = true;
     } 
     spriteHurtBox.updateHurtBox(gameController);
     if (state == 'jumping') {
         if (bottom > spriteHurtBox.bottomEdge - 2 && spriteHurtBox.bottomEdge - 2 < maxHeight) {
-            gameController.vy = 2;
+
         }
         if(spriteHurtBox.topEdge <= 56){
             
-            gameController.vy = 2;
+
         }
     }
     try {
@@ -93,8 +75,25 @@ function characterMovement(){
         console.log('no');
     }
 
-    //spriteHurtBox.updateHurtBox(gameController);
-    arrayOfSprites.forEach(box => test(box));
+    arrayOfSprites.forEach(box => {
+        let collide = test(box);
+        //console.log(collide);
+        if (collide.collision == true) {
+            gameController.vx += collide.vxMod;
+            gameController.vy += collide.vyMod;
+            if (collide.vxMod || collide.vyMod != 0) {
+                //alert('alert');
+            }
+            //console.log('list');
+            //console.log(collide);
+            //console.log(gameController.vx);
+            console.log(gameController.vy);
+            testing++;
+
+        }
+    });
+    
+    collisionDetection = [];
     testing = 0;
       
 }
@@ -108,25 +107,43 @@ function playCharacter(){
     setupCharacter();
 
     document.addEventListener('keydown', (e) => {
-
-        //gameController.movement(e);
+       
 
     });
     document.addEventListener('keypress', (e) => {
 
-        //gameController.keyP(e);
+ 
         isKeyDown = true;
         gameController.movement(e, spriteHurtBox);
+        if((e.key = 'd' || e.key == 'a') && time <= 5/32 * app.ticker.deltaMS){
+            time += 1/32 * app.ticker.deltaMS;
+        }
+        
         state = updateState(gameController.vx, gameController.vy, sprite);
         let currentTextures = newResource.spritesheet.animations[state];
         if (sprite.textures != currentTextures) {
             sprite.textures = currentTextures;
             sprite.play();
         }
+        if (e.key == 'k') {
+            currentTextures = newResource.spritesheet.animations['running'];
+            
+            if (sprite.textures != currentTextures) {
+                sprite.textures = currentTextures;
+                console.log(sprite.textures);
+                sprite.animationSpeed = 0.5;
+                sprite.play();
+                console.log('done');
+            }
+        }
 
 
     });
     document.addEventListener('keyup', (e) => {
+        if(time != 0){
+            time = 0;
+            gameController.vxmax = 0;
+        }
         gameController.stopMovement(e, spriteHurtBox);
         state = updateState(gameController.vx, gameController.vy, sprite);
         sprite.textures = newResource.spritesheet.animations[state];
@@ -138,16 +155,20 @@ function playCharacter(){
 
     
     app.ticker.add(() => {
+        console.log(gameController.vy);
+        console.log(spriteHurtBox.touchingGround);
+        if(spriteHurtBox.touchingGround == false){
+            gameController.vy = 2;
+        }
         if(damageboost > 0) {
             damageboost -= app.deltaTime;
         }
+        console.log(gameController.vy);
         characterMovement();
 
-        //console.log('hurtbox of the enemy:');
+        
         enemyHurtBox.calculateEdges();
-        //console.log(enemyHurtBox);
-
-        console.log("collision with enemy: " + spriteHurtBox.collideWithEnemy(enemyHurtBox));
+        
 
         if(damageboost <= 0 && spriteHurtBox.AABBCollision(spriteHurtBox, enemyHurtBox)){
             if(hearts > 1)
@@ -158,9 +179,7 @@ function playCharacter(){
                 gameController.vx = 0;
                 gameController.vy = 0;
                 sprite.x += (10 * spriteHurtBox.horiCollision(enemyHurtBox));
-                //damageboost = app.deltaTime;
-                //sprite.x = 16;
-                //sprite.y = 192 - (16 * 8);
+                
             } else if(hearts == 1){
                 alert('you died.');
                 gameController.vx = 0;
@@ -180,17 +199,18 @@ function playCharacter(){
             }
         }
 
-
-
-        state = updateState(gameController.vx, gameController.vy, sprite);
+        
+        state = updateState(gameController.vx, gameController.vy, sprite)
+        
         let currentTextures = newResource.spritesheet.animations[state];
         if (sprite.textures != currentTextures) {
             sprite.textures = currentTextures;
             sprite.play();
         }
-        gameController.move();
-
         
+        gameController.move();
+        console.log(gameController.vy);    
+
 
 
         if(sprite.x + spriteHurtBox.width/2 >= 800){
@@ -234,18 +254,13 @@ function playCharacter(){
             }
         }
         
-        /*if(3 > hearts > 0){
-            container.removeChild(heartArray[hearts - 1]);
-        }*/
+       
         
 
         
     });
 
-    /*sprite.onFrameChange = function () {
-        gameController.move();
-    }*/
-    
+   
 
 }
 
