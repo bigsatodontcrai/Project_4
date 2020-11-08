@@ -22,6 +22,7 @@ class hurtBox {
         this.topEdge = 0;
         this.bottomEdge = 0;
         this.coins = false;
+        this.dead = false;
         
         this.touchingGround = false;
         
@@ -147,8 +148,8 @@ class hurtBox {
      * @return number - horizontal number and vertical number
      */
     diagCollision(rect1, rect2){
-        rect2.nextX = rect2.x + rect2.vx;
-        rect2.nextY = rect2.y + rect2.vy;
+        rect2.nextX = rect2.x + this.vx;
+        rect2.nextY = rect2.y + this.vy;
 
         const NE = rect2.vx > 0 && rect2.vy < 0;
         const NW = rect2.vx < 0 && rect2.vy < 0;
@@ -190,84 +191,68 @@ class hurtBox {
         let hori = this.horiCollision(this, box);
         let vert = this.vertCollision(this, box);
         let diag = this.diagCollision(this, box);
-        if(this.immutable == true){
-        }
-        if (this.immutable == false) {
-            return this.processGravity(box, controller);
-        }
         return this.processCollision(box, hori, vert, diag, controller);
     }
 
     processCollision(box, hori, vert, diag, controller){
+        if (this.AABBCollision(box, this) && this.coins == true) {
+            container.removeChild(this.sprite);
+            container.removeChild(text);
+            coinCounter++;
+            text = new PIXI.Text('Coins: ' + coinCounter, { fontFamily: 'Helvetica', fontSize: 12, fill: 0xF00000, align: 'center' });
+            text.x = 16 * 4;
+            container.addChild(text);
+            this.coins = false;
+            coinCollection();
+        }
         if(hori != 0 && controller.vy == 0){
+            
             return {
                 collision: true,
                 vxMod: hori, 
-                vyMod: 0
+                vyMod: 0,
+                immutable: this.immutable,
+                y: this.y,
+                x: this.x
             }
             
         }
         if(vert != 0 && controller.vx == 0){
             if(vert < 0){
-                
+                //alert('gangshit');
                 box.touchingGround = true;
                 
             }
             return {
                 collision: true,
                 vxMod: 0,
-                vyMod: vert
+                vyMod: vert,
+                immutable: this.immutable,
+                y: this.y,
+                x: this.x
+                
             }
         }
         if(diag.h != 0 && diag.v != 0){
             return {
                 collision: true,
                 vxMod: hori,
-                vyMod: vert
+                vyMod: vert,
+                immutable: this.immutable,
+                y: this.y,
+                x: this.x
             }
         }
+        
+        
         return {
             collision: false,
             vxMod: 0,
-            vyMod: 0
+            vyMod: 0,
+            immutable: this.immutable,
+            y: this.y,
+            x: this.x
         }
-    }
-
-    processGravity(box, controller){
-        let testVy = 1;
-        let gravityTest = 0;
-        
-        gravityTest = this.vertCollision(box, this);
-        
-        if(this.AABBCollision(box, this) && this.coins == true){
-            container.removeChild(this.sprite);
-        }
-        if(controller.vy >= 0){
-            this.vy = 3;
-        } else if(controller.vy < 0 && box.touchingGround == true){
-            box.touchingGround = true;
-            return {
-                collision: true,
-                vxMod: 0,
-                vyMod: 0
-            }
-        }
-        //alert(this.vertCollision(this, box));
-        if(this.vertCollision(this, box) < 0){
-            box.touchingGround = false;
-            return {
-                collision: true,
-                vxMod: 0,
-                vyMod: 0
-            }
-        } else {
-            return {
-                collision: false,
-                vxMod: 0,
-                vyMod: 0
-            }
-        }
-        
     }
 
    
@@ -286,13 +271,7 @@ class hurtBox {
     }
 
     collideWithEnemy(enemyBox){
-        let hori = this.horiCollision(enemyBox);
-        let vert = this.vertCollision(enemyBox);
-        let diagonal = this.diagCollision(enemyBox);
-        //alert('collide with enemy');
-
         if(this.AABBCollision(this, enemyBox)) {
-            //alert('collide with enemy');
             return true;
         } else {
             return false;

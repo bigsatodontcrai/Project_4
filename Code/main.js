@@ -6,10 +6,18 @@ PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    let myMusic;
+    myMusic = new sound("448_beat.mp3");
+    myMusic.play();
+    
     document.body.appendChild(app.view);
 
     //const level = import('./Assets/Platforms.json');
     container = new PIXI.Container();
+    text = new PIXI.Text('Coins: ' + coinCounter, { fontFamily: 'Helvetica', fontSize: 12, fill: 0xF00000, align: 'center' });
+    text.x = 16*4;
+    
+    
     //makePlatforms(level);
 
     let loadScene = PIXI.Loader.shared.add('./Assets/AssetsOrig.json');
@@ -18,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     loadScene.load(() => {
         let newResource = PIXI.Loader.shared.resources['./Assets/AssetsOrig.json'].spritesheet;
+        
         
         for (let i = 0; i < 50*15; i++) {
             if (platformArray[i] != 0 && platformArray[i] != 14) {
@@ -90,8 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
             container.addChild(heartArray[i]);
         }
 
-        console.log(platformSprites);
-        console.log(constantHurtBox);
+        container.addChild(text);
+
+        //console.log(platformSprites);
+        //console.log(constantHurtBox);
         
     });
 

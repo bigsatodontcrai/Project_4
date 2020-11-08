@@ -33,10 +33,8 @@ class controller {
         } if (e.key == 'd'){
             this.vx = 3;
         } if (e.key == 'w'){
-            if(this.vy == 0){
-                this.vy = -3;
-            } else {
-                this.vy = 3;
+            if(onTheGround){
+                this.vy = -2;
             }
         } 
         return true;
@@ -98,6 +96,10 @@ class controller {
         }
         if((e.key != 'd' || e.key != 'a') && this.vx != 0){
             this.vx = 0;
+        }
+        if(e.key == 'm'){
+            time = 0;
+            amAttacking = false;
         }
     }
 

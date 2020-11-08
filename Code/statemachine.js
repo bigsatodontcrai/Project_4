@@ -12,7 +12,7 @@ function updateState(vx, vy, sprite) {
     let thisState = '';
     if (vx != 0 && vy == 0) {
         //alert('himbo');
-        sprite.animationSpeed = 0.3;
+        sprite.animationSpeed = 0.5;
         if (vx > 0) {
             if (Forward == -1) {
                 //sprite.x = sprite.x - sprite.width;
@@ -33,11 +33,16 @@ function updateState(vx, vy, sprite) {
         sprite.animationSpeed = 0.5;
         thisState = 'falling';
     } else if (vy < 0) {
-        sprite.animationSpeed = 0.5;
+        sprite.animationSpeed = 0.1;
         thisState = 'jumping';
     } else {
         sprite.animationSpeed = 0.1;
         thisState = 'idle';
+    }
+
+    if(amAttacking){
+        sprite.animationSpeed = 0.3;
+        thisState = 'attack';
     }
 
     return thisState;
