@@ -147,8 +147,8 @@ class hurtBox {
      * @return number - horizontal number and vertical number
      */
     diagCollision(rect1, rect2){
-        rect2.nextX = rect2.x + rect2.vx;
-        rect2.nextY = rect2.y + rect2.vy;
+        rect2.nextX = rect2.x + this.vx;
+        rect2.nextY = rect2.y + this.vy;
 
         const NE = rect2.vx > 0 && rect2.vy < 0;
         const NW = rect2.vx < 0 && rect2.vy < 0;
@@ -205,69 +205,53 @@ class hurtBox {
             
         }
         if(hori != 0 && controller.vy == 0){
+            
             return {
                 collision: true,
                 vxMod: hori, 
-                vyMod: 0
+                vyMod: 0,
+                immutable: this.immutable,
+                y: this.y,
+                x: this.x
             }
             
         }
         if(vert != 0 && controller.vx == 0){
             if(vert < 0){
-                
+                //alert('gangshit');
                 box.touchingGround = true;
                 
             }
             return {
                 collision: true,
                 vxMod: 0,
-                vyMod: vert
+                vyMod: vert,
+                immutable: this.immutable,
+                y: this.y,
+                x: this.x
+                
             }
         }
         if(diag.h != 0 && diag.v != 0){
             return {
                 collision: true,
                 vxMod: hori,
-                vyMod: vert
+                vyMod: vert,
+                immutable: this.immutable,
+                y: this.y,
+                x: this.x
             }
         }
+        
+        
         return {
             collision: false,
             vxMod: 0,
-            vyMod: 0
+            vyMod: 0,
+            immutable: this.immutable,
+            y: this.y,
+            x: this.x
         }
-    }
-
-    processGravity(box, controller){
-        let testVy = 1;
-        let gravityTest = 0;
-        
-        gravityTest = this.vertCollision(box, this);
-        
-        if(this.AABBCollision(box, this) && this.coins == true){
-            
-            coinSound.play();
-            container.removeChild(this.sprite);
-        }
-        if(controller.vy >= 0){
-            this.vy = 3;
-        }
-        //alert(this.vertCollision(this, box));
-        if(this.vertCollision(this, box) < 0){
-            
-            return {
-                collision: false,
-                vxMod: 0,
-                vyMod: 0
-            }
-        } else {
-            return {
-                collision: false,
-                vxMod: 0,
-                vyMod: 0
-            }
-        }
-        
     }
 
    
@@ -286,13 +270,7 @@ class hurtBox {
     }
 
     collideWithEnemy(enemyBox){
-        let hori = this.horiCollision(enemyBox);
-        let vert = this.vertCollision(enemyBox);
-        let diagonal = this.diagCollision(enemyBox);
-        //alert('collide with enemy');
-
         if(this.AABBCollision(this, enemyBox)) {
-            //alert('collide with enemy');
             return true;
         } else {
             return false;

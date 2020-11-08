@@ -74,23 +74,28 @@ function characterMovement(){
     } catch(error) {
         console.log('no');
     }
-
+    collisionDetection = [];
     arrayOfSprites.forEach(box => {
+        
+        
         let collide = test(box);
+        
         if (collide.collision == true && box.immutable == true) {
             gameController.vx += collide.vxMod;
             gameController.vy += collide.vyMod;
-            console.log(gameController.vy);
             testing++;
-            onTheGround = collide.vyMod <= 0;
         }
-        else if(collide.collision == true && box.immutable == false){
-            onTheGround = !collide.vyMod <= 0;
+        else if(box.immutable == false){
+            collide.collision = false;
+            
         }
+        else if (gameController.vy == 0) {
+            
+        }
+        collisionDetection.push(collide);
+        
     });
     
-    collisionDetection = [];
-    testing = 0;
       
 }
 
@@ -121,7 +126,7 @@ function playCharacter(){
             sprite.textures = currentTextures;
             sprite.play();
         }
-        if (e.key == 'k') {
+        if (e.key == 'm') {
             currentTextures = newResource.spritesheet.animations['running'];
             
             if (sprite.textures != currentTextures) {
@@ -151,19 +156,30 @@ function playCharacter(){
 
     
     app.ticker.add(() => {
-        
-    
-        console.log(gameController.vy);
-        console.log(onTheGround);
-        if(!onTheGround && state != 'jumping'){
-            gameController.vy = 2;
-        }
-        if(damageboost > 0) {
-            damageboost -= app.deltaTime;
-        }
-        console.log(gameController.vy);
-        characterMovement();
+ 
+        let isOnGround = collisionDetection.find(box =>
+            box.immutable == true && box.vyMod <= 0 && box.y >= spriteHurtBox.y
+            && box.x <= spriteHurtBox.x && box.x + 16 >= spriteHurtBox.x
+        );
 
+        if (isOnGround == undefined) {
+            onTheGround = false;
+        } else {
+            onTheGround = true;
+        }
+        console.log(onTheGround);
+        
+        if(onTheGround == false && state != 'jumping'){
+            gameController.vy = 1;
+        } 
+        if(damageboost > 0) {
+            damageboost -= app.ticker.deltaTime;
+        }
+        
+        characterMovement();
+        
+        
+        
         
         enemyHurtBox.calculateEdges();
         
@@ -176,7 +192,7 @@ function playCharacter(){
                 alert('that enemy has taken your health.');
                 gameController.vx = 0;
                 gameController.vy = 0;
-                sprite.x += (10 * spriteHurtBox.horiCollision(enemyHurtBox));
+                sprite.x -= 20;
                 
             } else if(hearts == 1){
                 alert('you died.');
@@ -207,7 +223,7 @@ function playCharacter(){
         }
         
         gameController.move();
-        console.log(gameController.vy);    
+          
 
 
 
@@ -253,7 +269,9 @@ function playCharacter(){
         }
         
        
-        
+        if(gameController.vy > 1){
+            alert('what?!');
+        }
 
         
     });

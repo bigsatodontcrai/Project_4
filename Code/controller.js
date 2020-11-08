@@ -29,14 +29,14 @@ class controller {
         this.curr.push(e.key);
         this.size++;
         if(e.key == 'a'){
-            this.vx = -3;
+            this.vx = -2;
         } if (e.key == 'd'){
-            this.vx = 3;
+            this.vx = 2;
         } if (e.key == 'w'){
-            if(this.vy == 0){
-                this.vy = -3;
+            if(onTheGround){
+                this.vy = -1;
             } else {
-                this.vy = 3;
+                this.vy = 1;
             }
         } 
         return true;
