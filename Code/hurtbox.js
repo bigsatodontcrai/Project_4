@@ -203,7 +203,7 @@ class hurtBox {
             text.x = 16 * 4;
             container.addChild(text);
             this.coins = false;
-            
+            coinCollection();
         }
         if(hori != 0 && controller.vy == 0){
             

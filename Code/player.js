@@ -23,8 +23,8 @@ function setupCharacter(){
     spriteHurtBox = new hurtBox(sprite);
     spriteHurtBox.calculateCharEdges();
     gameController = new controller(sprite);
+    testController();
     hearts = 3;
-
     bottom = spriteHurtBox.bottomEdge;
     maxHeight = bottom - 16*5;
     
@@ -105,6 +105,7 @@ function characterMovement(){
 function playCharacter(){
     const newResource = PIXI.Loader.shared.resources['./Assets/adventurer-Sheet.json'];
     setupCharacter();
+        testWin();
 
     document.addEventListener('keydown', (e) => {
        
@@ -148,7 +149,7 @@ function playCharacter(){
     
     app.ticker.add(() => {
  
-        let isOnGround = collisionDetection.find(box =>
+         isOnGround = collisionDetection.find(box =>
             box.immutable == true && box.vyMod <= 0 && box.y >= spriteHurtBox.y
             && box.x <= spriteHurtBox.x && box.x + 16 >= spriteHurtBox.x
         );
@@ -157,8 +158,13 @@ function playCharacter(){
             onTheGround = false;
         } else {
             onTheGround = true;
+            onGroundCheck++;
+            if (onGroundCheck == 2)
+            {
+                onGroundy();
+            }
         }
-        console.log(amAttacking);
+       // console.log(amAttacking);
         
         if(onTheGround == false && state != 'jumping'){
             gameController.vy = 1;
@@ -177,13 +183,14 @@ function playCharacter(){
 
         enemyArray.forEach(enemyHurt => {
             enemyHurt.calculateEdges();
-            console.log(enemyHurt);
+           // console.log(enemyHurt);
             if (spriteHurtBox.AABBCollision(spriteHurtBox, enemyHurt)) {
 
                 if (enemyHurt.dead == false && hearts > 1) {
                     container.removeChild(heartArray[hearts - 1]);
                     hearts--;
-                    alert('that enemy has taken your health.');
+
+                    healthCheck();
                     gameController.vx = 0;
                     gameController.vy = 0;
                     sprite.x -= 20;
@@ -211,7 +218,7 @@ function playCharacter(){
             if (amAttacking) {
                 time += 1;
             }
-            console.log(time);
+           // console.log(time);
             if (enemyHurt.dead == false && spriteHurtBox.AABBCollision(spriteHurtBox, enemyHurt) && amAttacking && Forward == 1) {
                 if (time >= 20) {
                     enemyHurt.dead = true;
@@ -256,8 +263,18 @@ function playCharacter(){
             } else {
                 alert('You get an F idk');
             }
-            sprite.x = 16;
-            sprite.y = 192 - (16 * 8);
+
+            if (test2Invalid == 1)
+            {
+                testFallOut();
+                test2Invalid++;
+            }
+            else if (test2Invalid > 1)
+            {
+                sprite.x = 16;
+                sprite.y = 192 - (16 * 8);
+            }
+
             
         }
 
