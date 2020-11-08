@@ -29,14 +29,12 @@ class controller {
         this.curr.push(e.key);
         this.size++;
         if(e.key == 'a'){
-            this.vx = -2;
+            this.vx = -3;
         } if (e.key == 'd'){
-            this.vx = 2;
+            this.vx = 3;
         } if (e.key == 'w'){
             if(onTheGround){
-                this.vy = -1;
-            } else {
-                this.vy = 1;
+                this.vy = -2;
             }
         } 
         return true;
@@ -98,6 +96,10 @@ class controller {
         }
         if((e.key != 'd' || e.key != 'a') && this.vx != 0){
             this.vx = 0;
+        }
+        if(e.key == 'm'){
+            time = 0;
+            amAttacking = false;
         }
     }
 

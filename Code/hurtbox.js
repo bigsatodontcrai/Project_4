@@ -22,6 +22,7 @@ class hurtBox {
         this.topEdge = 0;
         this.bottomEdge = 0;
         this.coins = false;
+        this.dead = false;
         
         this.touchingGround = false;
         

@@ -46,22 +46,15 @@ function test(box){
  */
 function characterMovement(){
     
-    if(state == 'jumping' && spriteHurtBox.downCollision == true){
-        spriteHurtBox.downCollision = false;
-    }
-    if(spriteHurtBox.downCollision && state != 'jumping'){
+    
+    if(onTheGround && state != 'jumping'){
         bottom = spriteHurtBox.bottomEdge;
-        maxHeight = bottom - 16*5;
+        maxHeight = bottom - 16*4;
     }
-   if (gameController.vy <= 0 && state != 'jumping'){
-        gravity = false;
-    } else if (state != 'jumping'){
-        gravity = true;
-    } 
     spriteHurtBox.updateHurtBox(gameController);
     if (state == 'jumping') {
         if (bottom > spriteHurtBox.bottomEdge - 2 && spriteHurtBox.bottomEdge - 2 < maxHeight) {
-
+            gameController.vy = 1;
         }
         if(spriteHurtBox.topEdge <= 56){
             
@@ -77,22 +70,28 @@ function characterMovement(){
     collisionDetection = [];
     arrayOfSprites.forEach(box => {
         
+        let collide;
+        try {
+            collide = test(box)
+
+            if (collide.collision == true && box.immutable == true) {
+                gameController.vx += collide.vxMod;
+                gameController.vy += collide.vyMod;
+                testing++;
+            }
+            else if (box.immutable == false) {
+                collide.collision = false;
+
+            }
+            else if (gameController.vy == 0) {
+
+            }
+            collisionDetection.push(collide);
+        } catch(error){
+            console.log('nice');
+
+        }
         
-        let collide = test(box);
-        
-        if (collide.collision == true && box.immutable == true) {
-            gameController.vx += collide.vxMod;
-            gameController.vy += collide.vyMod;
-            testing++;
-        }
-        else if(box.immutable == false){
-            collide.collision = false;
-            
-        }
-        else if (gameController.vy == 0) {
-            
-        }
-        collisionDetection.push(collide);
         
     });
     
@@ -117,7 +116,7 @@ function playCharacter(){
         isKeyDown = true;
         gameController.movement(e, spriteHurtBox);
         if((e.key = 'd' || e.key == 'a') && time <= 5/32 * app.ticker.deltaMS){
-            time += 1/32 * app.ticker.deltaMS;
+            //time += 1/32 * app.ticker.deltaMS;
         }
         
         state = updateState(gameController.vx, gameController.vy, sprite);
@@ -127,15 +126,7 @@ function playCharacter(){
             sprite.play();
         }
         if (e.key == 'm') {
-            currentTextures = newResource.spritesheet.animations['running'];
-            
-            if (sprite.textures != currentTextures) {
-                sprite.textures = currentTextures;
-                console.log(sprite.textures);
-                sprite.animationSpeed = 0.5;
-                sprite.play();
-                console.log('done');
-            }
+            amAttacking = true;
         }
 
 
@@ -167,7 +158,7 @@ function playCharacter(){
         } else {
             onTheGround = true;
         }
-        console.log(onTheGround);
+        console.log(amAttacking);
         
         if(onTheGround == false && state != 'jumping'){
             gameController.vy = 1;
@@ -181,38 +172,57 @@ function playCharacter(){
         
         
         
-        enemyHurtBox.calculateEdges();
         
+        //console.log(Goomba);
 
-        if(damageboost <= 0 && spriteHurtBox.AABBCollision(spriteHurtBox, enemyHurtBox)){
-            if(hearts > 1)
-            {
-                container.removeChild(heartArray[hearts - 1]);
-                hearts--;
-                alert('that enemy has taken your health.');
-                gameController.vx = 0;
-                gameController.vy = 0;
-                sprite.x -= 20;
-                
-            } else if(hearts == 1){
-                alert('you died.');
-                gameController.vx = 0;
-                gameController.vy = 0;
-                sprite.x = 16;
-                sprite.y = 192 - (16 * 8);
-                hearts = 3;
-                for (let i = 0; i < 3; i++) {
-                    heartArray[i] = new PIXI.Sprite.from('./Assets/heart.png');
-                    heartArray[i].height = 8;
-                    heartArray[i].width = 8;
-                    heartArray[i].x = 16 * i + 3;
-                    heartArray[i].y = 4;
-                    container.addChild(heartArray[i]);
+        enemyArray.forEach(enemyHurt => {
+            enemyHurt.calculateEdges();
+            console.log(enemyHurt);
+            if (spriteHurtBox.AABBCollision(spriteHurtBox, enemyHurt)) {
+
+                if (enemyHurt.dead == false && hearts > 1) {
+                    container.removeChild(heartArray[hearts - 1]);
+                    hearts--;
+                    alert('that enemy has taken your health.');
+                    gameController.vx = 0;
+                    gameController.vy = 0;
+                    sprite.x -= 20;
+
+                } else if (enemyHurt.dead == false && hearts == 1) {
+                    alert('you died.');
+                    gameController.vx = 0;
+                    gameController.vy = 0;
+                    sprite.x = 16;
+                    sprite.y = 192 - (16 * 8);
+                    hearts = 3;
+                    for (let i = 0; i < 3; i++) {
+                        heartArray[i] = new PIXI.Sprite.from('./Assets/heart.png');
+                        heartArray[i].height = 8;
+                        heartArray[i].width = 8;
+                        heartArray[i].x = 16 * i + 3;
+                        heartArray[i].y = 4;
+                        container.addChild(heartArray[i]);
+                    }
+                    reset++;
                 }
-                reset++;
             }
-        }
 
+            spriteHurtBox.calculateEdges();
+            if (amAttacking) {
+                time += 1;
+            }
+            console.log(time);
+            if (enemyHurt.dead == false && spriteHurtBox.AABBCollision(spriteHurtBox, enemyHurt) && amAttacking && Forward == 1) {
+                if (time >= 20) {
+                    enemyHurt.dead = true;
+                    container.removeChild(enemyHurt.sprite);
+                    time = 0;
+                }
+
+            }
+            spriteHurtBox.calculateCharEdges();
+        })
+        
         
         state = updateState(gameController.vx, gameController.vy, sprite)
         
@@ -227,7 +237,7 @@ function playCharacter(){
 
 
 
-        if(sprite.x + spriteHurtBox.width/2 >= 800){
+        if(sprite.x >= 800){
             alert('congratulations! you beat the demo');
             if (hearts == 3 && reset == 0) {
                 alert('All hearts and 0 resets! You got an A+!')
