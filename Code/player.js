@@ -77,19 +77,15 @@ function characterMovement(){
 
     arrayOfSprites.forEach(box => {
         let collide = test(box);
-        //console.log(collide);
-        if (collide.collision == true) {
+        if (collide.collision == true && box.immutable == true) {
             gameController.vx += collide.vxMod;
             gameController.vy += collide.vyMod;
-            if (collide.vxMod || collide.vyMod != 0) {
-                //alert('alert');
-            }
-            //console.log('list');
-            //console.log(collide);
-            //console.log(gameController.vx);
             console.log(gameController.vy);
             testing++;
-
+            onTheGround = collide.vyMod <= 0;
+        }
+        else if(collide.collision == true && box.immutable == false){
+            onTheGround = !collide.vyMod <= 0;
         }
     });
     
@@ -155,9 +151,11 @@ function playCharacter(){
 
     
     app.ticker.add(() => {
+        
+    
         console.log(gameController.vy);
-        console.log(spriteHurtBox.touchingGround);
-        if(spriteHurtBox.touchingGround == false){
+        console.log(onTheGround);
+        if(!onTheGround && state != 'jumping'){
             gameController.vy = 2;
         }
         if(damageboost > 0) {

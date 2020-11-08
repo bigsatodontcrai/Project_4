@@ -74,6 +74,9 @@ function testCollision(worldX, worldY)
 app.loader.add('goombaba', './Assets/Walky.png');
 app.loader.add('goombabaFlip', './Assets/WalkyBack.png');
 
+
+
+
 app.loader.load((loader, resources) => {
   let GoombaTextures = [];
   for (let i = 0; i< 4; i++)
@@ -95,7 +98,8 @@ app.loader.load((loader, resources) => {
 
   let Goomba = new PIXI.Sprite(GoombaTextures[0]);
   enemyHurtBox = new hurtBox(Goomba);
-  app.stage.addChild(Goomba)
+  container.addChild(BG);
+  container.addChild(Goomba)
 
 let goombaStat = {
 
@@ -108,6 +112,7 @@ let goombaStat = {
 
 let inAir = true;
 
+  
 
 app.ticker.add((time) => {
   
