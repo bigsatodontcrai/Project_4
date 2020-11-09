@@ -12,3 +12,9 @@ This is our works cited page for both Project 3 & 4
     * https://luizmelo.itch.io/monsters-creatures-fantasy
     * https://rvros.itch.io/animated-pixel-hero
     * https://startledpixels.itch.io/2d-pixel-item-asset-pack
+* Audio Source
+    * https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement/Audio
+* Essay Help Sources
+    * https://www.sherweb.com/blog/cloud-server/total-cost-of-ownership-of-servers-iaas-vs-on-premise/#:~:text=A%20recent%20article%20by%20ZDNet,to%20run%20an%20average%20server.
+    * https://latimesblogs.latimes.com/entertainmentnewsbuzz/2010/02/anatomy-of-a-60-dollar-video-game.html
+    
