@@ -32,6 +32,35 @@ function setupCharacter(){
 }
 
 /**
+ * destructFromArray - destruct array
+ * @param {Array} platformSprites 
+ */
+function destructFromArray(platformSprites) {
+    platformSprites.forEach(platform => {
+        container.removeChild(platform);
+    })
+    constantHurtBox = [];
+}
+
+/**
+ * nextLevel - move to the next level
+ */
+function nextLevel() {
+    destructFromArray(spriteHolder[levelIndex]);
+    levelIndex++;
+    try {
+        constructFromArray(platformArrayContainer[levelIndex]);
+    } catch(error){
+        alert('No More levels left! Back to square one, I guess.');
+        levelIndex = 0;
+        constructFromArray(platformArrayContainer[levelIndex]);
+    }
+    coinCounter = 0;
+    
+}
+
+
+/**
  * test - tests the collision
  * @param {elemet} box - PIXI sprite element
  */
@@ -88,7 +117,7 @@ function characterMovement(){
             }
             collisionDetection.push(collide);
         } catch(error){
-            console.log('nice');
+            
 
         }
         
@@ -148,7 +177,7 @@ function playCharacter(){
 
     
     app.ticker.add(() => {
- 
+        
          isOnGround = collisionDetection.find(box =>
             box.immutable == true && box.vyMod <= 0 && box.y >= spriteHurtBox.y
             && box.x <= spriteHurtBox.x && box.x + 16 >= spriteHurtBox.x
@@ -176,6 +205,23 @@ function playCharacter(){
         characterMovement();
         
         
+        if(coinCounter >= 100){
+            
+            let piece = constantHurtBox.findIndex(box => box.gate == true);
+            let truth = enemyArray.find(enemyBox => enemyBox.dead == false);
+            
+            if(piece != 0 && truth == undefined){
+                constantHurtBox[piece] = {
+                    x: (piece % 50) * 16,
+                    y: (Math.floor(piece / 50) + 1) * 16,
+                    height: 16,
+                    width: 16
+                } 
+                container.removeChild(platformSprites[piece]);
+                
+            } 
+            
+        }
         
         
         
@@ -244,26 +290,8 @@ function playCharacter(){
 
 
 
-        if(sprite.x >= 800){
-            alert('congratulations! you beat the demo');
-            if (hearts == 3 && reset == 0) {
-                alert('All hearts and 0 resets! You got an A+!')
-            } else if (hearts == 3 && 2 > reset > 0 || (hearts == 2 && reset < 2)) {
-                alert('All hearts and ' + reset + ' resets! You get a B')
-            } else if (hearts == 2 && reset == 3 || reset == 4) {
-                alert('2 hearts and ' + reset + ' resets! You get a C');
-            } else if (hearts == 1 && reset == 0) {
-                alert('You barely got it in one try. You can have a B+');
-            } else if (hearts == 1 && 2 > reset > 0){
-                alert('hmmm a few resets and a missing heart. You get a C');
-            } else if (hearts == 1 && reset == 3){
-                alert('You barely deserve the congratulations. You get a D!');
-            } else if (hearts == 1 && reset > 3){
-                alert('Sike. You get an F! 1 heart left and ' + reset + 'resets?! That is more than 3!');
-            } else {
-                alert('You get an F idk');
-            }
-
+        if(sprite.x >= 810){
+            //alert('On to the next level!');
             if (test2Invalid == 1)
             {
                 testFallOut();
@@ -273,10 +301,18 @@ function playCharacter(){
             {
                 sprite.x = 16;
                 sprite.y = 192 - (16 * 8);
+                console.log('done'); 
+                let truth = enemyArray.find(enemyBox => enemyBox.dead == false);
+                if(coinCounter >= 100 && truth == undefined){
+                    alert('On to the next level!');
+                    nextLevel();
+                }
             }
 
             
         }
+
+       
 
         if(spriteHurtBox.bottomEdge >= 16*15){
             alert('you died.');
@@ -296,11 +332,15 @@ function playCharacter(){
         }
         
        
-        if(gameController.vy > 1){
-            alert('what?!');
+        /*if(gameController.vy > 1){
+            gameController.vy = gameController.vy/Math.abs(gameController.vy);
         }
-
-        
+        if(Math.abs(gameController.vx) > 3){
+            gameController.vx = 3 * (gameController.vx / Math.abs(gameController.vx));
+        }
+        if(gameController.vy < -2){
+            gameController.vy = 2 * gameController.vy / Math.abs(gameController.vy);
+        }*/
     });
 
    

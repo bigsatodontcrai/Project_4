@@ -5,7 +5,9 @@ onGroundy();
 testHealth();
 
 
-
+/**
+ * touchytouchy - tests to see if a collision was dectected
+ */
 function touchytouchy () {
     let testground = collisionDetection.find(box =>
         box.immutable == false && box.vyMod == 0 && box.vxMod == 0 && box.collision == false);
@@ -20,12 +22,18 @@ function touchytouchy () {
     }
 }
 
+/**
+ * onGroundy - tests to see if touching the ground functions work correctly
+ */
 function onGroundy() {
     console.log("Touching Ground functions Correctly!");
     onGroundCheck = undefined;
     delete (onGroundCheck);
 }
 
+/**
+ * testController - tests to see if the contoller class works
+ */
 function testController() {
     if (gameController != null)
     {
@@ -37,6 +45,9 @@ function testController() {
     }
 }
 
+/**
+ * coinCollection - tests if the coin counter and collection is working
+ */
 function coinCollection () {
     if (coinCounter  == 1)
     {
@@ -52,6 +63,9 @@ function coinCollection () {
     }
 }
 
+/**
+ * testHealth - test if health is lost
+ */
 function testHealth ()
 {
     hearts--;
@@ -67,13 +81,17 @@ function testHealth ()
 
 }
 
+/**
+ * testWin - tests if the game win function works
+ */
 function testWin()
 {
-    sprite.x = 800;
-    if (sprite.x == 800)
+    sprite.x = 810;
+    if (sprite.x == 810)
     {
         test2Invalid++;
         console.log("Game winning works!");
+        
     }
     else
     {
@@ -81,6 +99,9 @@ function testWin()
     }
 }
 
+/**
+ * testFallOut - tests if falling off the map works
+ */
 function testFallOut ()
 {
     sprite.x = -200;
