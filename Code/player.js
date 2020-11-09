@@ -31,6 +31,10 @@ function setupCharacter(){
 
 }
 
+/**
+ * destructFromArray - destruct array
+ * @param {Array} platformSprites 
+ */
 function destructFromArray(platformSprites) {
     platformSprites.forEach(platform => {
         container.removeChild(platform);
@@ -38,6 +42,9 @@ function destructFromArray(platformSprites) {
     constantHurtBox = [];
 }
 
+/**
+ * nextLevel - move to the next level
+ */
 function nextLevel() {
     destructFromArray(spriteHolder[levelIndex]);
     levelIndex++;
