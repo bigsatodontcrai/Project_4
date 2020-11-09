@@ -11,6 +11,9 @@ class controller {
         this.vert = sprite.y;
         this.vx = 0;
         this.vy = 0;
+        this.vxmax = 0;
+        this.vxmod = 0;
+        this.vymod = 0;
         this.curr = [];
         this.size = 0;
         //this.time = 0;
@@ -26,14 +29,12 @@ class controller {
         this.curr.push(e.key);
         this.size++;
         if(e.key == 'a'){
-            this.vx = -1;
+            this.vx = -3;
         } if (e.key == 'd'){
-            this.vx = 1;
+            this.vx = 3;
         } if (e.key == 'w'){
-            if(spriteHurtBox.downCollision){
-                this.vy = -1;
-            } else {
-                this.vy = 1;
+            if(onTheGround){
+                this.vy = -2;
             }
         } 
         return true;
@@ -45,11 +46,10 @@ class controller {
      * @return boolean
      */
     move(){
-        //alert('hey ' + this.vy);
-        
         this.sprite.x += this.vx;
-        //alert(this.sprite.y);
         this.sprite.y += this.vy;
+        this.vxMod = 0;
+        this.vyMod = 0;
         //alert(this.sprite.y);
         return true;
     }
@@ -88,14 +88,19 @@ class controller {
      */
     stopMovement(e, spriteHurtBox){
         if (e.key == 'd' || e.key == 'a') {
-            if (spriteHurtBox.downCollision) {
+            if (this.vy == 0) {
                 this.vx = 0;
             }
-        } if (e.key == 'w' && spriteHurtBox.downCollision == false) {
-            this.vy = 2;
-        } /*else if (spriteHurtBox.downCollision == true) {
-            this.vy = -2;
-        }*/
+        } if (e.key == 'w' && this.vy != 0) {
+            this.vy = 1;
+        }
+        if((e.key != 'd' || e.key != 'a') && this.vx != 0){
+            this.vx = 0;
+        }
+        if(e.key == 'm'){
+            time = 0;
+            amAttacking = false;
+        }
     }
 
     /**

@@ -102,8 +102,71 @@ function newSpriteArray(box) {
     for (let i = 0; i < 12; i++) {
         let index = ind[i];
         spriteArray[i] = constantHurtBox[index];
-        platformSprites[index].width = 13;
+        //platformSprites[index].width = 13;
     }
 
     return spriteArray;
+}
+
+function constructFromArray(platformArray) {
+    let newResource = PIXI.Loader.shared.resources['./Assets/AssetsOrig.json'].spritesheet;
+    for (let i = 0; i < 50 * 15; i++) {
+        if (platformArray[i] != 0 && platformArray[i] != 14) {
+
+            let index = platformArray[i] - 1;
+            let loc = 'Assets' + index + '.png';
+
+            platformSprites[i] = new PIXI.Sprite(newResource.textures[loc]);
+            platformSprites[i].x = (i % 50) * 16;
+            let yloc = Math.floor(i / 50);
+            platformSprites[i].y = (yloc + 1) * 16;
+            platformSprites[i].width = 16;
+            platformSprites[i].height = 16;
+            platformSprites[i].interactive = true;
+
+
+            constantHurtBox[i] = new hurtBox(platformSprites[i]);
+            constantHurtBox[i].immutable = true;
+            constantHurtBox[i].calculateEdges();
+            container.addChild(platformSprites[i]);
+            if (platformArray[i] == 12) {
+                constantHurtBox[i].gate = true;
+            }
+        } else if (platformArray[i] == 14) {
+            platformSprites[i] = new PIXI.AnimatedSprite(newResource.animations.coins);
+            platformSprites[i].x = (i % 50) * 16;
+            let yloc = Math.floor(i / 50);
+            platformSprites[i].y = (yloc + 1) * 16;
+            platformSprites[i].width = 16;
+            platformSprites[i].height = 16;
+            platformSprites[i].interactive = true;
+            platformSprites[i].animationSpeed = 0.3;
+
+            constantHurtBox[i] = new hurtBox(platformSprites[i]);
+            constantHurtBox[i].immutable = false;
+            constantHurtBox[i].coins = true;
+            constantHurtBox[i].calculateEdges();
+            platformSprites[i].play();
+            container.addChild(platformSprites[i]);
+
+        }
+        else {
+
+
+            platformSprites[i] = {
+                x: (i % 50) * 16,
+                y: (Math.floor(i / 50) + 1) * 16,
+                height: 16,
+                width: 16,
+            };
+            constantHurtBox[i] = new hurtBox(platformSprites[i]);
+            constantHurtBox[i].height = platformSprites[i].height;
+            constantHurtBox[i].width = platformSprites[i].width;
+            //constantHurtBox[i].immutable = false;
+            constantHurtBox[i].calculateEdges();
+            constantHurtBox[i].coins = false;
+            //container.addChild(platformSprites[i]);
+        }
+    }
+    spriteHolder.push(platformSprites);
 }
