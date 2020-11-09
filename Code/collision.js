@@ -108,6 +108,10 @@ function newSpriteArray(box) {
     return spriteArray;
 }
 
+/**
+ * constructFromArray - contructs platformSprites and hurtboxes from the given platform array
+ * @param {number} platformArray 
+ */
 function constructFromArray(platformArray) {
     let newResource = PIXI.Loader.shared.resources['./Assets/AssetsOrig.json'].spritesheet;
     for (let i = 0; i < 50 * 15; i++) {

@@ -21,7 +21,9 @@ const app = new PIXI.Application(
     }
 );
 
-
+/**
+ * healthCheck - checks how many hearts player has left and alerts them
+ */
 function healthCheck () 
 {
     if (hearts == 3)
@@ -111,7 +113,10 @@ let gameController;
 let isOnGround;
 let onGroundCheck = 1;
 
-
+/**
+ * sound - controls the sounds in the game
+ * @param {string} src 
+ */
 function sound(src) {
     this.sound = document.createElement("audio");
     this.sound.src = src;

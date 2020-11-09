@@ -49,6 +49,11 @@ function updateState(vx, vy, sprite) {
 
 }//will move this to statemachine
 
+/**
+ * attackState - changes state to attacking 
+ * @param {KeyboardEvent} e 
+ * @return string 
+ */
 function attackState(e){
     if(e.keyCode == 32){
         return 'attack';

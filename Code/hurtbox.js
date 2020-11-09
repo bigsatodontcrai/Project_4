@@ -187,6 +187,11 @@ class hurtBox {
         }
     }
 
+    /**
+     * checkBoxCollision - checks if there was a collision on a hurt box
+     * @param {elelment} box - PIXI sprite element
+     * @param {controller} controller
+     */
     checkBoxCollision(box, controller){
         this.updateVelocity(controller);
         let hori = this.horiCollision(this, box);
@@ -195,6 +200,14 @@ class hurtBox {
         return this.processCollision(box, hori, vert, diag, controller);
     }
 
+    /**
+     * processCollision - processes the collision of boxes
+     * @param {element} box - PIXI sprite element
+     * @param {number} hori 
+     * @param {number} vert 
+     * @param {number} diag 
+     * @param {controller} controller 
+     */
     processCollision(box, hori, vert, diag, controller){
         if (this.AABBCollision(box, this) && this.coins == true) {
             container.removeChild(this.sprite);
