@@ -117,7 +117,7 @@ function characterMovement(){
             }
             collisionDetection.push(collide);
         } catch(error){
-            console.log('nice');
+            
 
         }
         
