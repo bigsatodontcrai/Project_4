@@ -13,6 +13,7 @@ The goal of the game is to avoid emenies without losing all your health and coll
     * W to jump
     * A to go left
     * D to go right
+    * M to attack
 
 ## Documentation ![Adventurer5](Documentation/images/adventurer5.png)
 All documentation can be found in the [Documentation Folder]. If you are specifically looking for the HTML file with the project documentation, that is the index.html file found [here](Documentation/out)

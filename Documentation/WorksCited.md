@@ -1,5 +1,5 @@
 # Works Cited ![Adventurer6](images/adventurer6.png)
-This is our works cited page for Project 3
+This is our works cited page for both Project 3 & 4
 
 * [PIXI.JS](https://www.pixijs.com/)
     * To help us render and do animation we are using PIXI.js. All of these file used are in the Code/js folder 
